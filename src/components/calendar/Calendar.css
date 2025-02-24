@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    border: 1px solid #30ccbf;
   }
   
   .calendar-container h2 {
