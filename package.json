@@ -3,39 +3,40 @@
     "version": "0.0.0",
     "main": "",
     "scripts": {
-      "dev": "react-scripts start",
-      "start": "react-scripts start",
-      "build": "react-scripts build",
-      "test": "react-scripts test --env=jsdom",
-      "eject": "react-scripts eject"
-  },
-  "dependencies": {
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "react-scripts": "5.0.1"
-  },
-  "devDependencies": {},
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+        "dev": "react-scripts start",
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject"
+    },
+    "dependencies": {
+        "@fullcalendar/daygrid": "^6.1.15",
+        "@fullcalendar/interaction": "^6.1.15",
+        "@fullcalendar/react": "^6.1.15",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-scripts": "5.0.1"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
     "author": "",
     "license": "ISC",
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/sredifer/collaborative-study-organizer.git"
+        "type": "git",
+        "url": "git+https://github.com/sredifer/collaborative-study-organizer.git"
     },
     "bugs": {
-      "url": "https://github.com/sredifer/collaborative-study-organizer/issues"
+        "url": "https://github.com/sredifer/collaborative-study-organizer/issues"
     },
-    "homepage": "https://github.com/sredifer/collaborative-study-organizer#readme",
     "description": ""
-  }
+}
