@@ -1,11 +1,159 @@
 .calendar-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid #30ccbf;
-  }
-  
-  .calendar-container h2 {
-    margin-bottom: 20px;
-  }
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal overlay to cover the entire viewport */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal window styling */
+.modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  z-index: 10000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Form elements styling inside the modal */
+.modal label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Style for the "X" close button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #555;
+}
+
+.close-button:hover {
+  color: #222;
+}
+
+/* Ensure the modal has a relative position so the close button can be placed correctly */
+.modal {
+  position: relative;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  z-index: 10000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* For view modal, right-align the button group */
+.modal-buttons-view .right-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+/* For edit modal, separate left and right button groups */
+.modal-buttons-edit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-buttons-edit .left-buttons,
+.modal-buttons-edit .right-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/*
+.delete-button {
+  padding: 8px 12px;  
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  min-width: 100px; 
+  text-align: center;
+}
+
+.delete-button:hover {
+  background: #f0f0f0;
+}
+*/
+
+/* Primary style for save changes button */
+.primary-button {
+  background-color: #298ed1;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.primary-button:hover {
+  background-color: #2980b9;
+}
+
+/* Ensure all neutral buttons (Cancel & Delete) match in size and style */
+.neutral-button, .delete-button {
+  padding: 8px 12px;  
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  background: white; 
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px; 
+}
+
+/* Hover effect for Cancel & Delete buttons */
+.neutral-button:hover, .delete-button:hover {
+  background: #f0f0f0;
+}
+
+
+/* Reduce extra space between "Goals:" and the list */
+.goals-list {
+  margin-top: 5px;
+}
+
+/* Style for the horizontal line inside modals */
+.modal-divider {
+  margin: 15px 0; 
+  border: 0.5px solid #ccc; /* Thin grey line */
+}
+
