@@ -1,6 +1,6 @@
 body {
-    font-family: Garamond, serif;
-    background-color: #f4f4f4;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    background-color: mistyrose;
     margin: 0;
     padding: 0;
     display: flex;
@@ -20,6 +20,7 @@ body {
 }
 
 .upload-container h2 {
+    font-family: Comic Sans MS, Comic Sans, cursive;
     margin-bottom: 10px;
     font-size: 20px;
     color: #333;
@@ -33,6 +34,7 @@ body {
 
 .upload-form input,
 .upload-form button {
+    font-family: Comic Sans MS, Comic Sans, cursive;
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -40,17 +42,19 @@ body {
 }
 
 .upload-form input[type="file"] {
+    font-family: Comic Sans MS, Comic Sans, cursive;
     border: none;
 }
 
 .upload-form button {
-    background-color: #456ea0;
-    color: white;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    background-color: mistyrose;
+    color: black;
     border: none;
     cursor: pointer;
     font-size: 16px;
 }
 
 .upload-form button:hover {
-    background-color: #456ea0;
+    background-color: #e1656f;
 }
