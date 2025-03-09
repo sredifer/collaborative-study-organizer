@@ -1,0 +1,147 @@
+.tag {
+    display: grid;
+    /* width: 170px; */
+    grid-template-columns: auto auto;
+    /* grid-gap: 5px; */
+    padding-top: 3.5px;
+    padding-bottom: 3.5px;
+    padding-left: 7.2px;
+    padding-right: 24.5px;
+    background-color: rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+    width: auto;
+    border-radius: 5px;
+    margin-right: 5px;
+    position: relative;
+    
+  
+    /* box-shadow: var(--box-shadow); */
+    /* border-radius: 5px; */
+    font-size: 14px;
+    font-family:"Lucida Console", "Courier New", monospace;
+    user-select: none;
+    
+    &.inverted {
+      color: white;
+      background: #000a;
+    }
+  
+    animation: fade-in .5s;
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  
+    .close-button {
+      position: absolute;
+      /* right: 0px; */
+      top: 3.5px;
+      right: 2.6px;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      transition: .25s;
+      &:hover {
+        background: #0000001a;
+        cursor: pointer;
+      }
+      
+      .close-icon {
+        display: block;
+        width: 10px;
+        height: 10px;
+  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+        &:before, &:after {
+          position: absolute;
+          content: '';
+          display: block;
+          background: grey;
+          height: 10px;
+          width: 2px;
+          border-radius: 10px;
+          margin: 0 auto;
+        }
+        &:after {
+          transform: rotate(-45deg);
+        }
+        &:before {
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+
+/* .tag.inverted {
+    color: white;
+    background: #000a;
+} */
+
+/* .tag:hover {
+    background: #0000001a;
+    cursor: pointer;
+} */
+
+.tag.close-button {
+    position: relative;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .25s;
+}
+
+.tag.close-button:hover {
+    background: #0000001a;
+    cursor: pointer;
+}
+
+.tag.close-button.close-icon {
+    display: block;
+    width: 10px;
+    height: 10px;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tag.close-button.close-icon:before {
+    position: absolute;
+    content: '';
+    display: block;
+    background: #888;
+    height: 10px;
+    width: 2px;
+    border-radius: 10px;
+    margin: 0 auto;
+    transform: rotate(45deg)
+}
+
+.tag.close-button.close-icon:after{
+    position: absolute;
+    content: '';
+    display: block;
+    background: #888;
+    height: 10px;
+    width: 2px;
+    border-radius: 10px;
+    margin: 0 auto;
+    transform: rotate(45deg);
+}
+

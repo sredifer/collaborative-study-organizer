@@ -1,0 +1,9 @@
+.search-box {
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+
+  hr {
+    margin: 0;
+    border: 1px solid #0001;
+  }
+}
