@@ -1,0 +1,64 @@
+body {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    background-color: mistyrose;
+    margin: 100px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* actual file upload form */
+.upload-container {
+    background: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-container h2 {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+}
+
+.upload-form input,
+.upload-form button {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.upload-form input[type="file"] {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    border: none;
+}
+
+.upload-form button {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    background-color: mistyrose;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.upload-form button:hover {
+    background-color: #e1656f;
+}
