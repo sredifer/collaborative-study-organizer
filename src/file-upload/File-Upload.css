@@ -1,7 +1,7 @@
 body {
     font-family: Comic Sans MS, Comic Sans, cursive;
     background-color: mistyrose;
-    margin: 0;
+    margin: 100px;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,9 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 400px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .upload-container h2 {
@@ -30,6 +32,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
+    align-items: center;
 }
 
 .upload-form input,
