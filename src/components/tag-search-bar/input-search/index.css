@@ -1,0 +1,38 @@
+.input-container {
+    text-align: left;
+  
+    input {
+      /* border: none; */
+      outline: none;
+      /* width: 100%; */
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      padding-top: 5px;
+      padding-left: 5px;
+      padding-bottom: 5px;
+      font-size: 16px;
+      font-family:"Lucida Console", "Courier New", monospace;
+    }
+  
+    .options {
+      height: 100px;
+      width: 50%;
+      overflow-y: scroll;
+      overflow-x: none;
+      border-style: solid;
+      font-family:"Lucida Console", "Courier New", monospace;
+      padding-top: 6px;
+      padding-left: 8px;
+      
+      /* animation: open .5s;
+      @keyframes open {
+        from {
+          max-height: 0;
+        }
+        to {
+          max-height: 150px;
+        }
+      } */
+    }
+  
+  }

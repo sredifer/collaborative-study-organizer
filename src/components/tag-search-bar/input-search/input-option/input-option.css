@@ -1,0 +1,51 @@
+.input-option {
+    display: grid;
+    grid-template-columns: 10px auto;
+    align-items: center;
+    grid-gap: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    
+    &:hover {
+      /* background: #0001;  */
+      background: red;
+      text-color: red;
+      cursor: pointer;
+    }
+  
+    .check {
+      display: block;
+      width: 15px;
+      height: 15px;
+      border-radius: 3px;
+      box-shadow: var(--box-shadow);
+  
+      &.checked {
+        position: relative;
+        &:after, &:before {
+          content: '';
+          position: absolute;
+          width: 3px;
+          height: 100%;
+          border-radius: 10px;
+          background: #444;
+        }
+        &:before {
+          transform: rotate(30deg);
+          left: 9px;
+          bottom: 3px;
+        }
+        &:after {
+          transform: rotate(-30deg);
+          height: 50%;
+          left: 4px;
+          bottom: 5px;
+        }
+      }
+    }
+  }
+
+  .input-option:hover{
+    text-color: red;
+  }
