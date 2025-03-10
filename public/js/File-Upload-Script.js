@@ -48,6 +48,14 @@ async function loadFiles(){
           const subjectFilter = document.getElementById("subjectFilter");
 
           fileContainer.innerHTML = "";  // clear existing files
+          subjectFilter.innerHTML = ""; // clear dropdown (avoid duplicate subjects)
+
+          // all option for dropdown menu that will show all files
+          const allOption = document.createElement("option");
+          allOption.value = "all";
+          allOption.textContent = "All";
+          subjectFilter.appendChild(allOption);
+          
           const subjects = new Set(); // use a set to store **unique** subjects
 
           files.forEach(file => {
@@ -58,13 +66,19 @@ async function loadFiles(){
 
               // html code to dynamically create the elements to display for when files are uploaded
               fileElement.innerHTML = `
-                  <div class="file-info">
-                      <span class="file-name">${file.filename}</span>
-                      <span class="file-subject">${file.subject}</span>
-                  </div>
-                  <div class="file-actions">
-                      <a href="${file.file_url}" target="_blank">Download</a>
-                  </div>
+                  <table class="file-table">
+                      <tr>
+                          <td><strong>File:</strong></td>
+                          <td>${file.filename}</td>
+                      </tr>
+                      <tr>
+                          <td><strong>Subject:</strong></td>
+                          <td>${file.subject}</td>
+                      </tr>
+                      <tr>
+                          <td colspan="2"><a href="${file.file_url}" target="_blank">Download here!</a></td>
+                      </tr>
+                  </table>
               `;
               fileContainer.appendChild(fileElement);
           });
