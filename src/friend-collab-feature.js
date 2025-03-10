@@ -5,8 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import confetti from "canvas-confetti";
 
+const animalIcons = ["🐶", "🐱", "🦊", "🐻", "🐼", "🐸", "🐵", "🐯", "🐷", "🐥"];
+
 export default function FriendCollaboration() {
   const [friends, setFriends] = useState(["Alice", "Bob", "Charlie"]);
+  const [friendIcons, setFriendIcons] = useState({
+    Alice: "🐶",
+    Bob: "🐱",
+    Charlie: "🦊",
+  });
   const [newFriend, setNewFriend] = useState("");
   const [sessions, setSessions] = useState([]);
   const [sessionComments, setSessionComments] = useState([]);
@@ -25,7 +32,9 @@ export default function FriendCollaboration() {
 
   const addFriend = () => {
     if (newFriend.trim() && !friends.includes(newFriend)) {
+      const randomIcon = animalIcons[Math.floor(Math.random() * animalIcons.length)];
       setFriends([...friends, newFriend]);
+      setFriendIcons({ ...friendIcons, [newFriend]: randomIcon });
       setNewFriend("");
       confetti();
     }
@@ -73,7 +82,10 @@ export default function FriendCollaboration() {
           <ul className="list-disc pl-5 text-md">
             {friends.map((friend, index) => (
               <li key={index} className="flex justify-between items-center border-b py-2">
-                {friend} <Button className="bg-[#FDFD96] text-gray-800 p-1 rounded-md" onClick={() => inviteToSession(friend)}>Invite</Button>
+                <div className="flex items-center space-x-2">
+                  <span>{friendIcons[friend]} {friend}</span>
+                </div>
+                <Button className="bg-[#FDFD96] text-gray-800 p-1 rounded-md" onClick={() => inviteToSession(friend)}>Invite</Button>
               </li>
             ))}
           </ul>
@@ -86,7 +98,7 @@ export default function FriendCollaboration() {
           <ul className="list-disc pl-5 text-md">
             {sessions.map((session, index) => (
               <li key={index} className="py-2 border-b flex justify-between">
-                {session.friend} - {session.topic}
+                {friendIcons[session.friend]} {session.friend} - {session.topic}
                 <Button className="bg-red-500 text-white p-1 rounded-md" onClick={() => removeFromSession(index)}>Remove</Button>
               </li>
             ))}
