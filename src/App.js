@@ -4,6 +4,7 @@ import SearchBar from "./components/study-library-feature/study-library-feature"
 import resourcesData from "./components/Study-library-resources-data.json" 
 import SearchBox from "./components/tag-search-bar";
 import optionArray from "./components/constants/options";
+import TodoList from "./components/todo-list/TodoList";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <h1>Collaborative Study Organizer</h1>
       <Calendar />
       <br />
+      <TodoList />
       <br />
       <SearchBar placeholder="Search for a study resource" data={resourcesData}/>
       <br />
