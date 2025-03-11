@@ -8,6 +8,7 @@ import optionArray from "./components/constants/options";
 import Timer from "./components/timer/Timer"; // Timer component
 import Settings from "./components/timer/Settings"; // Settings component
 import SettingsContext from "./components/timer/SettingsContext"; // Settings context
+import FriendCollaboration from "./components/friend-collab-feature";
 import './App.css';
 
 
@@ -40,6 +41,9 @@ function App() {
               </li>
               <li>
                 <Link to="/calendar">Calendar</Link> {/* Link to the calendar page */}
+              </li>
+              <li>
+                <Link to="/friend-collaboration">Friends!</Link> {/* Link to the friend collaboration page */}
               </li>
             </ul>
           </nav>
@@ -74,6 +78,11 @@ function App() {
                   )}
                 </>
               }
+            />
+            {/* Route for the Friend Collaboration page */}
+            <Route
+              path="/friend-collaboration"
+              element={<FriendCollaboration />} /* Add the FriendCollaboration component */
             />
           </Routes>
         </div>

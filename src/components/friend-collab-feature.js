@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+/*import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";*/
 import confetti from "canvas-confetti";
 
 const animalIcons = ["🐶", "🐱", "🦊", "🐻", "🐼", "🐸", "🐵", "🐯", "🐷", "🐥"];
@@ -67,17 +67,18 @@ export default function FriendCollaboration() {
     <div className="p-6 space-y-6 min-h-screen text-gray-800 bg-[#F9EDDC]">
       <h3 className="text-lg font-semibold text-center">{ambientStatus}</h3>
       
-      <Card className="bg-[#D6CDEA] shadow-md rounded-lg">
-        <CardContent className="p-6 space-y-4">
+      <div className="bg-[#D6CDEA] shadow-md rounded-lg p-6 space-y-4">
           <h2 className="text-xl font-bold">Friend Network</h2>
           <div className="flex space-x-2">
-            <Input
+            <input
               value={newFriend}
               onChange={(e) => setNewFriend(e.target.value)}
               placeholder="Add a friend"
               className="p-2 border rounded-md"
             />
-            <Button className="bg-[#B4E4C9] text-gray-800 p-2 rounded-md" onClick={addFriend}>Add</Button>
+            <button className="bg-[#B4E4C9] text-gray-800 p-2 rounded-md" onClick={addFriend}>
+              Add
+            </button>
           </div>
           <ul className="list-disc pl-5 text-md">
             {friends.map((friend, index) => (
@@ -85,56 +86,61 @@ export default function FriendCollaboration() {
                 <div className="flex items-center space-x-2">
                   <span>{friendIcons[friend]} {friend}</span>
                 </div>
-                <Button className="bg-[#FDFD96] text-gray-800 p-1 rounded-md" onClick={() => inviteToSession(friend)}>Invite</Button>
+                <button className="bg-[#FDFD96] text-gray-800 p-1 rounded-md" onClick={() => inviteToSession(friend)}>
+                  Invite
+                </button>
               </li>
             ))}
           </ul>
-        </CardContent>
-      </Card>
+        </div>
+      
 
-      <Card className="bg-[#FFC0CB] shadow-md rounded-lg">
-        <CardContent className="p-6 space-y-4">
+      <div className="bg-[#FFC0CB] shadow-md rounded-lg p-6 space-y-4">
           <h2 className="text-xl font-bold">Study Sessions & Live Chat</h2>
           <ul className="list-disc pl-5 text-md">
             {sessions.map((session, index) => (
               <li key={index} className="py-2 border-b flex justify-between">
                 {friendIcons[session.friend]} {session.friend} - {session.topic}
-                <Button className="bg-red-500 text-white p-1 rounded-md" onClick={() => removeFromSession(index)}>Remove</Button>
+                <button className="bg-red-500 text-white p-1 rounded-md" onClick={() => removeFromSession(index)}>
+                  Remove
+                </button>
               </li>
             ))}
           </ul>
           <h3 className="text-lg font-bold mt-4">Live Chat with Invited Friends</h3>
-          <Input
+          <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your name"
             className="p-2 border rounded-md mb-2"
           />
-          <Textarea
+          <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Write a comment..."
             className="w-full p-2 border rounded-md"
           />
-          <Button className="bg-[#AEC6CF] text-gray-800 p-2 rounded-md" onClick={addCommentToSession}>Post Comment</Button>
+          <button className="bg-[#AEC6CF] text-gray-800 p-2 rounded-md" onClick={addCommentToSession}>
+            Post Comment
+          </button>
           <ul className="list-disc pl-5 mt-2 text-md">
             {sessionComments.map((comment, index) => (
               <li key={index} className="py-2 border-b"><strong>{comment.user}:</strong> {comment.text}</li>
             ))}
           </ul>
-        </CardContent>
-      </Card>
+        </div>
       
-      <Card className="bg-[#E8D9CD] shadow-md rounded-lg">
-        <CardContent className="p-6 space-y-4">
+      <div className="bg-[#E8D9CD] shadow-md rounded-lg p-6 space-y-4">
           <h2 className="text-xl font-bold">Shared Notes</h2>
-          <Textarea
+          <textarea
             value={newNote}
             onChange={(e) => setNewNote(e.target.value)}
             placeholder="Write a note..."
             className="w-full p-2 border rounded-md whitespace-pre-line"
           />
-          <Button className="bg-[#B4E4C9] text-gray-800 p-2 rounded-md" onClick={addNote}>Add Note</Button>
+          <button className="bg-[#B4E4C9] text-gray-800 p-2 rounded-md" onClick={addNote}>
+            Add Note
+          </button>
           <ul className="list-disc pl-5 mt-2 text-md">
             {notes.map((note, index) => (
               <li key={index} className="py-2 border-b">
@@ -143,8 +149,7 @@ export default function FriendCollaboration() {
               </li>
             ))}
           </ul>
-        </CardContent>
-      </Card>
+        </div>
     </div>
   );
 }
