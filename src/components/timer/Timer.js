@@ -66,7 +66,7 @@ export default function Timer({ setShowSettings }) {
                 value={progressValue}
                 max={1}
                 style={{
-                    width: "80%",
+                    width: "70%",
                     height: "30px",
                 }}
             />

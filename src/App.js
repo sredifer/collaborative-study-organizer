@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom"; // Import routing components
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom"; // Import routing components
+import Login from "./components/authentication/Login";
+import Signup from "./components/authentication/Signup";
 import Calendar from "./components/calendar/Calendar";
 import SearchBar from "./components/study-library-feature/study-library-feature";
 import resourcesData from "./components/Study-library-resources-data.json";
@@ -14,12 +16,25 @@ import './App.css';
 
 
 function App() {
-  const [showSettings, setShowSettings] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+  const [showSettings, setShowSettings] = useState(false);
   const [workMinutes, setWorkMinutes] = useState(25);
   const [breakMinutes, setBreakMinutes] = useState(5);
   const [totalPomodoros, setTotalPomodoros] = useState(4);
 
   const [options, setOptions] = React.useState(optionArray);
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);  // Set authentication state to true after successful login
+  };
+
+  // Use useEffect to manage redirection after login
+  useEffect(() => {
+    if (isAuthenticated) {
+      // After successful login, navigate to the home page if redirected to login
+    }
+  }, [isAuthenticated]);
+
 
 
   return (
@@ -34,6 +49,14 @@ function App() {
       }}
     >
       <Router>
+      {!isAuthenticated ? (
+          <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/signup" element={<Signup onSignupSuccess={() => {}} />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+        ) : (
         <div>
           <nav>
             <ul>
@@ -90,10 +113,13 @@ function App() {
             />
             {/* New Route for File Upload Page */}
             <Route path="/file-upload" element={<FileUpload />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
+        )}
       </Router>
     </SettingsContext.Provider>
   );
 }
+
 export default App;
