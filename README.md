@@ -19,9 +19,15 @@ First do **node server.js**
 Then if on vscode open a new terminal (don't close out of previous command/terminal)
 Then do **npm start**
 
+AFTER LOGIN EDITS:
+cd src
+cd server
+node index.js
+open new terminal: npm start
+
 ## **Contributors**
 Samantha Redifer | Lily Brawner | Julia Endriga | Lyra Latifi | Samantha Zepeda  
 
-## Tools used:
+## Tools used: MERN Stack (MongoDB, Express, React, Node.js)
 
-<img src="https://cdn.freebiesupply.com/logos/large/2x/nodejs-1-logo-png-transparent.png" alt="Alt Text" width="200" height="120"> <img src="https://static-00.iconduck.com/assets.00/react-original-wordmark-icon-840x1024-vhmauxp6.png" alt="Alt Text" width="150" height="180"> <img src="https://cdn.iconscout.com/icon/free/png-256/free-postgresql-logo-icon-download-in-svg-png-gif-file-formats--wordmark-programming-langugae-freebies-pack-logos-icons-1175122.png" alt="Alt Text" width="150" height="150">
+<img src="https://cdn.freebiesupply.com/logos/large/2x/nodejs-1-logo-png-transparent.png" alt="Alt Text" width="200" height="120"> <img src="https://static-00.iconduck.com/assets.00/react-original-wordmark-icon-840x1024-vhmauxp6.png" alt="Alt Text" width="150" height="180">
