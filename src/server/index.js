@@ -14,6 +14,8 @@ app.use(cors({
 
   const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
+const sessionRoutes = require("./routes/sessions");
+app.use("/api/sessions", sessionRoutes);
 
 
 // Connect to MongoDB Atlas

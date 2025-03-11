@@ -1,9 +1,12 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const SessionSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },  // Reference to the user
-    completedPomodoros: { type: Number, required: true, default: 0 },
-    date: { type: Date, default: Date.now }, // Record the date of the session
+const sessionSchema = new mongoose.Schema({
+    pomodorosCompleted: { type: Number, required: true },
+    workTimeLength: { type: Number, required: true },   // in minutes
+    breakTimeLength: { type: Number, required: true },   // in minutes
+    timestamp: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Session", SessionSchema);
+const Session = mongoose.model('Session', sessionSchema);
+
+module.exports = Session;

@@ -3,6 +3,8 @@ import PlayButton from "./PlayButton";
 import PauseButton from "./PauseButton";
 import SettingsButton from "./SettingsButton";
 import SettingsContext from "./SettingsContext";
+import SessionsLogButton from "./SessionsLogButton";
+import SessionsLog from "./SessionsLog";
 
 export default function Timer({ setShowSettings }) {
     const { workMinutes, breakMinutes, totalPomodoros } = useContext(SettingsContext);
@@ -10,7 +12,9 @@ export default function Timer({ setShowSettings }) {
     const [secondsLeft, setSecondsLeft] = useState(workMinutes * 60);
     const [isRunning, setIsRunning] = useState(false);
     const [mode, setMode] = useState("work");
-    const [pomodoroCount, setPomodoroCount] = useState(1);
+    const [pomodoroCount, setPomodoroCount] = useState(0);
+    const [showSessionsLog, setShowSessionsLog] = useState(false);
+    const [congratulationsMessage, setCongratulationsMessage] = useState("");  // State for the congratulations message
 
     useEffect(() => {
         setSecondsLeft((mode === "work" ? workMinutes : breakMinutes) * 60);
@@ -25,16 +29,21 @@ export default function Timer({ setShowSettings }) {
                     clearInterval(interval);
 
                     if (mode === "work") {
-                        if (pomodoroCount >= totalPomodoros) {
-                            setIsRunning(false);
-                            return 0;
-                        }
                         setMode("break");
-                        setPomodoroCount(pomodoroCount + 1);
                         return breakMinutes * 60;
                     } else {
-                        setMode("work");
-                        return workMinutes * 60;
+                        if ((pomodoroCount < totalPomodoros))
+                            setPomodoroCount(pomodoroCount + 1);
+                        if (pomodoroCount === (totalPomodoros - 1)) {
+                            setIsRunning(false);
+                            logSession();
+                            setCongratulationsMessage("Congratulations! You completed this pomodoro session.");
+                            return 0;
+                        }
+                        else {
+                            setMode("work");
+                            return workMinutes * 60;
+                        }
                     }
                 }
                 return prev - 1;
@@ -53,41 +62,87 @@ export default function Timer({ setShowSettings }) {
     const totalTime = mode === "work" ? workMinutes * 60 : breakMinutes * 60;
     const progressValue = 1 - secondsLeft / totalTime;
 
+    const logSession = async () => {
+        // Log the session data to the backend when the last Pomodoro is completed
+        const sessionData = {
+            completedPomodoros: totalPomodoros,
+            workTime: workMinutes,
+            breakTime: breakMinutes,
+            timestamp: new Date().toISOString(),
+        };
+
+        try {
+            const response = await fetch("http://localhost:3001/api/sessions/log", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-auth-token": localStorage.getItem("authToken"), // Assuming the token is stored in localStorage
+                },
+                body: JSON.stringify(sessionData),
+            });
+
+            if (response.ok) {
+                console.log("Session logged successfully!");
+            } else {
+                console.error("Failed to log session");
+            }
+        } catch (error) {
+            console.error("Error logging session", error);
+        }
+    };
+
     return (
         <div style={{ textAlign: "center" }}>
-            <p style={{ fontSize: "18px"}}>
-                Pomodoro {pomodoroCount} / {totalPomodoros}
+            {showSessionsLog ? (
+                <SessionsLog setShowSessionsLog={setShowSessionsLog} />
+            ) : (
+                <>
+                    {congratulationsMessage ? (
+                <p style={{ fontSize: "18px" }}>
+                Pomodoros Completed: {totalPomodoros} / {totalPomodoros}
             </p>
-            <p style={{ fontSize: "20px", marginTop: "10px" }}>
-                {mode === "work" ? "Studying..." : "Break Time!"}
-            </p>
-            <h2 style={{ fontSize: "48px" }}>{formatTime(secondsLeft)}</h2>
-            <progress 
-                value={progressValue}
-                max={1}
-                style={{
-                    width: "70%",
-                    height: "30px",
-                }}
-            />
+            ) : ( <p style={{ fontSize: "18px" }}>
+                        Pomodoros Completed: {pomodoroCount} / {totalPomodoros}
+                    </p>
+            )}
+                    <p style={{ fontSize: "20px", marginTop: "10px" }}>
+                        {mode === "work" ? "Studying..." : "Break Time!"}
+                    </p>
+                    <h2 style={{ fontSize: "48px" }}>{formatTime(secondsLeft)}</h2>
+                    <progress 
+                        value={progressValue}
+                        max={1}
+                        style={{
+                            width: "70%",
+                            height: "30px",
+                        }}
+                    />
+                    {congratulationsMessage ? (
+                <p style={{ fontSize: "18px", color: "green" }}>{congratulationsMessage}</p>
+            ) : (
+                <p style={{ fontSize: "18px", color: "gray" }}>
+                    {pomodoroCount === (totalPomodoros - 1)
+                        ? "Almost done!"
+                        : mode === "work"
+                        ? `Next: Break for ${breakMinutes} minutes`
+                        : `Next: Study for ${workMinutes} minutes`}
+                </p>
+            )}
 
-            <p style={{ fontSize: "18px", color: "gray" }}>
-            {pomodoroCount === totalPomodoros 
-        ? "Almost done!" 
-        : mode === "work" 
-            ? `Next: Break for ${breakMinutes} minutes` 
-            : `Next: Study for ${workMinutes} minutes`
-    }
-            </p>
+                    <div style={{ marginTop: "10px" }}>
+                        <PlayButton onClick={() => setIsRunning(true)} />
+                        <PauseButton onClick={() => setIsRunning(false)} />
+                    </div>
 
-            <div style={{ marginTop: "10px" }}>
-                <PlayButton onClick={() => setIsRunning(true)} />
-                <PauseButton onClick={() => setIsRunning(false)} />
-            </div>
+                    <div style={{ marginTop: "10px" }}>
+                        <SettingsButton setShowSettings={setShowSettings} />
+                    </div>
 
-            <div style={{ marginTop: "10px" }}>
-                <SettingsButton setShowSettings={setShowSettings} />
-            </div>
+                    <div style={{ marginTop: "15px" }}>
+                        <SessionsLogButton setShowSessionsLog={setShowSessionsLog} />
+                    </div>
+                </>
+            )}
         </div>
     );
 }
