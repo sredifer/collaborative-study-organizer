@@ -1,0 +1,88 @@
+/* Style for the overall container */
+.friend-collab-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 5%;
+  }
+
+  .friend-collab-container-2 {
+    background-color: rgb(228, 189, 189);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    max-width: 1000px;
+    /*margin: auto;*/
+    /*margin-top: 5%;*/
+  }
+  
+  /* Header styles */
+  .friend-collab-header {
+    font-size: 24px;
+    font-weight: bold;
+    /*text-align: center;*/
+    color: #ecaaaa;
+    margin-bottom: 20px;
+  }
+  
+  /* Input and button styles */
+  .friend-collab-input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .friend-collab-input,
+  .friend-collab-button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .friend-collab-input {
+    flex-grow: 1;
+  }
+  
+  .friend-collab-button {
+    background-color: #B4E4C9;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .friend-collab-button:hover {
+    background-color: #A2D1B3;
+  }
+  
+  /* List styles for friends */
+  .friend-collab-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .friend-collab-list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #D6CDEA;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .friend-collab-button-remove {
+    background-color: #FDFD96;
+    color: #333;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .friend-collab-button-remove:hover {
+    background-color: #F4F4A6;
+  }
+  

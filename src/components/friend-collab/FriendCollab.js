@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";*/
 import confetti from "canvas-confetti";
+import "./FriendCollab.css";
 
 const animalIcons = ["🐶", "🐱", "🦊", "🐻", "🐼", "🐸", "🐵", "🐯", "🐷", "🐥"];
 
@@ -25,7 +26,7 @@ export default function FriendCollaboration() {
 
   useEffect(() => {
     const syncEnvironment = setTimeout(() => {
-      setAmbientStatus("Synced Study Environment");
+      setAmbientStatus("Synced Study Environment!");
     }, 2000);
     return () => clearTimeout(syncEnvironment);
   }, []);
@@ -64,10 +65,9 @@ export default function FriendCollaboration() {
   };
 
   return (
-    <div className="p-6 space-y-6 min-h-screen text-gray-800 bg-[#F9EDDC]">
-      <h3 className="text-lg font-semibold text-center">{ambientStatus}</h3>
-      
-      <div className="bg-[#D6CDEA] shadow-md rounded-lg p-6 space-y-4">
+    <div className="friend-collab-container">
+      <h3 className="friend-collab-header">{ambientStatus}</h3>
+      <div className="friend-collab-container-2">
           <h2 className="text-xl font-bold">Friend Network</h2>
           <div className="flex space-x-2">
             <input

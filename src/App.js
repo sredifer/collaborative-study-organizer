@@ -8,7 +8,7 @@ import optionArray from "./components/constants/options";
 import Timer from "./components/timer/Timer"; // Timer component
 import Settings from "./components/timer/Settings"; // Settings component
 import SettingsContext from "./components/timer/SettingsContext"; // Settings context
-import FriendCollaboration from "./components/friend-collab-feature";
+import FriendCollaboration from "./components/friend-collab/FriendCollab";
 import FileUpload from "./components/file-upload/FileUpload";
 import './App.css';
 
