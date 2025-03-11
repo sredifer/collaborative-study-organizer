@@ -14,7 +14,10 @@ The **Collaborative Study Organizer** is a web-based platform designed to help s
 9. **Rewards & Gamification** - Earn points for completing study sessions and checklist tasks.
 
 ## **Instructions to Run the App**
-**(To be determined - still under construction)**
+To run right now:
+First do **node server.js**
+Then if on vscode open a new terminal (don't close out of previous command/terminal)
+Then do **npm start**
 
 ## **Contributors**
 Samantha Redifer | Lily Brawner | Julia Endriga | Lyra Latifi | Samantha Zepeda  
