@@ -1,4 +1,79 @@
-.calendar-container {
+body{
+  background-color:mistyrose;
+  color:#2f4f4f;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+main{
+  padding-top: 150px;
+  max-width: 340px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+button{
+  background-color: transparent;
+  color:darkslategray;
+  border:0;
+  display: inline-block;
+  width: 40px;
+  cursor: pointer;
+}
+
+.with-text {
+  width: auto;
+  text-align: center;
+  display: inline-flex; /* Ensures proper alignment */
+  align-items: center; /* Centers icon and text */
+  gap: 6px; /* Space between icon and text */
+  padding: 10px 12px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: darkslategray;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+}
+
+.with-text svg {
+  width:20px;
+  float:left;
+  stroke: currentColor; /* Ensures it uses the text color */
+  flex-shrink: 0; /* Prevents shrinking */
+}
+
+label{
+  display: block;
+}
+
+.single-thumb .range-slider__thumb[data-lower] {
+  width: 0;
+}
+.single-thumb .range-slider__range {
+  border-radius: 6px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #2f4f4f;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* calendar */
+.calendar-container .some-class {
   max-width: 900px;
   margin: 20px auto;
   padding: 20px;
@@ -118,14 +193,12 @@
 
 /* Primary style for save changes button */
 .primary-button {
-  background-color: #cf5175 !important;
+  background-color: #298ed1;
   color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  min-width: 120px; /* Ensures it has enough width */
-  display: inline-block; /* Keeps it aligned properly */
 }
 .primary-button:hover {
   background-color: #2980b9;
@@ -136,7 +209,6 @@
   padding: 8px 12px;  
   border: 1px solid #ccc; 
   border-radius: 4px; 
-  min-width: 80px;
   background: white; 
   cursor: pointer;
   text-align: center;
@@ -160,39 +232,3 @@
   border: 0.5px solid #ccc; /* Thin grey line */
 }
 
-.fc-toolbar-chunk {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Adjust spacing between buttons */
-}
-
-.fc-toolbar-title {
-  font-size: 1.5rem; /* Adjust title size if needed */
-}
-
-.fc-button-group button {
-  /* padding: 8px 16px; Makes the buttons wider */
-  /* min-width: 80px; Ensures buttons don’t collapse */
-  flex: 1;
-}
-
-.fc-button-group {
-  display: flex;
-  /*gap: 5px; Spaces out the buttons */
-}
-
-.fc-toolbar .fc-button {
-  white-space: nowrap; /* Prevents text from wrapping */
-}
-
-.fc-button {
-  background-color: #cf5175 !important;
-  padding: 8px 16px !important; /* Ensures consistent button size */
-  min-width: 80px; /* Makes sure text has enough space */
-  text-align: center;
-}
-
-.fc-prev-button, .fc-next-button {
-  min-width: 60px;
-  padding: 8px;
-}

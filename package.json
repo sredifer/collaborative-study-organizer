@@ -17,6 +17,8 @@
         "@fullcalendar/timegrid": "^6.1.15",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+        "react-range-slider-input": "^3.2.1",
+        "react-router-dom": "^7.3.0",
         "react-scripts": "5.0.1"
     },
     "browserslist": {
