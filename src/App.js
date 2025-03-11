@@ -9,6 +9,7 @@ import Timer from "./components/timer/Timer"; // Timer component
 import Settings from "./components/timer/Settings"; // Settings component
 import SettingsContext from "./components/timer/SettingsContext"; // Settings context
 import FriendCollaboration from "./components/friend-collab-feature";
+import FileUpload from "./components/file-upload/FileUpload";
 import './App.css';
 
 
@@ -44,6 +45,9 @@ function App() {
               </li>
               <li>
                 <Link to="/friend-collaboration">Friends!</Link> {/* Link to the friend collaboration page */}
+              </li>
+              <li>
+                <Link to="/file-upload">File Upload</Link> {/* Link to the file upload page */}
               </li>
             </ul>
           </nav>
@@ -84,6 +88,8 @@ function App() {
               path="/friend-collaboration"
               element={<FriendCollaboration />} /* Add the FriendCollaboration component */
             />
+            {/* New Route for File Upload Page */}
+            <Route path="/file-upload" element={<FileUpload />} />
           </Routes>
         </div>
       </Router>

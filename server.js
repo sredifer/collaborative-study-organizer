@@ -75,7 +75,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     const newFile = new File({
         filename,
         subject,
-        file_url: `http://localhost:3000/uploads/${filename}`
+        file_url: `http://localhost:5000/uploads/${filename}`
     });
 
     try {
@@ -99,10 +99,10 @@ app.get('/api/files', async (req, res) => {
 });
 
 // static files from uploads folder. these will be the files that the user uploads
-app.use('/uploads', express.static(path.join(__dirname, '../../src/file-upload/uploads/')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // start server on port 3000
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

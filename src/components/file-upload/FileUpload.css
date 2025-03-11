@@ -1,4 +1,4 @@
-body {
+/*body {
     font-family: Comic Sans MS, Comic Sans, cursive;
     background-color: mistyrose;
     margin: 100px;
@@ -6,7 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+}*/
 
 /* actual file upload form */
 .upload-container {
