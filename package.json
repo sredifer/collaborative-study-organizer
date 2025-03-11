@@ -4,19 +4,28 @@
     "main": "src/file-upload/File-Upload-Server.js",
     "scripts": {
         "dev": "react-scripts start",
-        "start": "node src/file-upload/File-Upload-Server.js",
+        "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject"
     },
     "dependencies": {
+        "@fullcalendar/core": "^6.1.15",
+        "@fullcalendar/daygrid": "^6.1.15",
+        "@fullcalendar/interaction": "^6.1.15",
+        "@fullcalendar/react": "^6.1.15",
+        "@fullcalendar/timegrid": "^6.1.15",
+        "@shadcn/ui": "^0.0.4",
+        "canvas-confetti": "^1.9.3",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-range-slider-input": "^3.2.1",
+        "react-router-dom": "^7.3.0",
         "cors": "^2.8.5",
         "express": "^4.21.2",
         "mongoose": "^8.12.1",
         "multer": "^1.4.5-lts.1",
         "pg": "^8.13.3",
-        "react": "19.0.0",
-        "react-dom": "19.0.0",
         "react-scripts": "5.0.1"
     },
     "browserslist": {
@@ -40,6 +49,5 @@
     "bugs": {
         "url": "https://github.com/sredifer/collaborative-study-organizer/issues"
     },
-    "homepage": "https://github.com/sredifer/collaborative-study-organizer#readme",
     "description": ""
 }
