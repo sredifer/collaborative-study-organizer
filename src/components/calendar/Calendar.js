@@ -180,7 +180,7 @@ const Calendar = () => {
 
   return (
     <div className="calendar-container">
-      <h2>Click on a day to create your study session!</h2>
+      <h2>Study Sessions Calendar</h2>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"

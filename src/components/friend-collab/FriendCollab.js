@@ -67,26 +67,26 @@ export default function FriendCollaboration() {
   return (
     <div className="friend-collab-container">
       <h3 className="friend-collab-header">{ambientStatus}</h3>
-      <div className="friend-collab-container-2">
-          <h2 className="text-xl font-bold">Friend Network</h2>
-          <div className="flex space-x-2">
+      <div className="friend-collab-card">
+          <h2 className="friend-collab-card-title">Friend Network</h2>
+          <div className="friend-collab-flex-container">
             <input
               value={newFriend}
               onChange={(e) => setNewFriend(e.target.value)}
               placeholder="Add a friend"
-              className="p-2 border rounded-md"
+              className="friend-collab-input"
             />
-            <button className="bg-[#B4E4C9] text-gray-800 p-2 rounded-md" onClick={addFriend}>
+            <button className="friend-collab-button friend-collab-add-button" onClick={addFriend}>
               Add
             </button>
           </div>
-          <ul className="list-disc pl-5 text-md">
+          <ul className="friend-collab-list">
             {friends.map((friend, index) => (
-              <li key={index} className="flex justify-between items-center border-b py-2">
-                <div className="flex items-center space-x-2">
+              <li key={index} className="friend-collab-list-item friend-collab-flex-container">
+                <div className="friend-collab-icons">
                   <span>{friendIcons[friend]} {friend}</span>
                 </div>
-                <button className="bg-[#FDFD96] text-gray-800 p-1 rounded-md" onClick={() => inviteToSession(friend)}>
+                <button className="friend-collab-button friend-collab-invite-button" onClick={() => inviteToSession(friend)}>
                   Invite
                 </button>
               </li>
@@ -95,57 +95,57 @@ export default function FriendCollaboration() {
         </div>
       
 
-      <div className="bg-[#FFC0CB] shadow-md rounded-lg p-6 space-y-4">
-          <h2 className="text-xl font-bold">Study Sessions & Live Chat</h2>
-          <ul className="list-disc pl-5 text-md">
+      <div className="friend-collab-study-sessions">
+          <h2>Study Sessions & Live Chat</h2>
+          <ul>
             {sessions.map((session, index) => (
-              <li key={index} className="py-2 border-b flex justify-between">
+              <li key={index}>
                 {friendIcons[session.friend]} {session.friend} - {session.topic}
-                <button className="bg-red-500 text-white p-1 rounded-md" onClick={() => removeFromSession(index)}>
+                <button className="friend-collab-remove-button" onClick={() => removeFromSession(index)}>
                   Remove
                 </button>
               </li>
             ))}
           </ul>
-          <h3 className="text-lg font-bold mt-4">Live Chat with Invited Friends</h3>
+          <h3 className="friend-collab-chat-title">Live Chat with Invited Friends</h3>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your name"
-            className="p-2 border rounded-md mb-2"
+            className="friend-collab-chat-input"
           />
           <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Write a comment..."
-            className="w-full p-2 border rounded-md"
+            className="friend-collab-chat-input"
           />
-          <button className="bg-[#AEC6CF] text-gray-800 p-2 rounded-md" onClick={addCommentToSession}>
+          <button className="friend-collab-post-button" onClick={addCommentToSession}>
             Post Comment
           </button>
-          <ul className="list-disc pl-5 mt-2 text-md">
+          <ul>
             {sessionComments.map((comment, index) => (
-              <li key={index} className="py-2 border-b"><strong>{comment.user}:</strong> {comment.text}</li>
+              <li key={index}><strong>{comment.user}:</strong> {comment.text}</li>
             ))}
           </ul>
         </div>
       
-      <div className="bg-[#E8D9CD] shadow-md rounded-lg p-6 space-y-4">
-          <h2 className="text-xl font-bold">Shared Notes</h2>
+      <div className="friend-collab-shared-notes">
+          <h2>Shared Notes</h2>
           <textarea
             value={newNote}
             onChange={(e) => setNewNote(e.target.value)}
             placeholder="Write a note..."
-            className="w-full p-2 border rounded-md whitespace-pre-line"
+            /*className="friend-collab-chat-input"*/
           />
-          <button className="bg-[#B4E4C9] text-gray-800 p-2 rounded-md" onClick={addNote}>
+          <button className="friend-collab-add-note-button" onClick={addNote}>
             Add Note
           </button>
-          <ul className="list-disc pl-5 mt-2 text-md">
+          <ul>
             {notes.map((note, index) => (
-              <li key={index} className="py-2 border-b">
+              <li key={index}>
                 <strong>{note.user}:</strong>
-                <pre className="whitespace-pre-line">{note.text}</pre>
+                <pre>{note.text}</pre>
               </li>
             ))}
           </ul>

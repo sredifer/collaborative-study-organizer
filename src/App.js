@@ -84,7 +84,11 @@ function App() {
               path="/calendar"
               element={
                 <>
-                  <h1>Calendar</h1>
+                  <center>
+                  <div class="logo">
+                    <img src="/images/calendar-page-logo.png" width="600" height="108"></img>
+                  </div>
+                  </center>
                   <Calendar />
                   <br />
                   <SearchBar placeholder="Search for a study resource" data={resourcesData} />
@@ -115,7 +119,16 @@ function App() {
             {/* Route for the Friend Collaboration page */}
             <Route
               path="/friend-collaboration"
-              element={<FriendCollaboration />} /* Add the FriendCollaboration component */
+              element={
+              <>  
+                <center>
+                <div class="logo">
+                  <img src="/images/friends-page-logo.png" width="513" height="189"></img>
+                </div>
+                </center>
+              <FriendCollaboration /> {/* Add the FriendCollaboration component */}
+              </>
+              } 
             />
             {/* New Route for File Upload Page */}
             <Route path="/file-upload" element={<FileUpload />} />
