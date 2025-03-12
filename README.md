@@ -19,11 +19,18 @@ First do **node server.js**
 Then if on vscode open a new terminal (don't close out of previous command/terminal)
 Then do **npm start**
 
-AFTER LOGIN EDITS:
-cd src
-cd server
-node index.js
-open new terminal: npm start
+
+After cloning the repository, cd into src, then cd into server. You will be creating a .env file
+that manages your connection to the server for authentication purposes. 
+
+It will have the format:
+MONGO_URI=your_mongo_uri
+JWT_SECRET=your_jwt_secret
+PORT=3000
+
+You will need access to a Mongo Database, which you can do locally or through MongoDB Atlas. 
+To get a JWT_SECRET code, run the command node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+in your terminal, which will help with authentication. You can then run node index.js.
 
 ## **Contributors**
 Samantha Redifer | Lily Brawner | Julia Endriga | Lyra Latifi | Samantha Zepeda  
