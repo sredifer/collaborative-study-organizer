@@ -116,7 +116,7 @@ function DateSearchBar() {
 
     return (
         <div className="date-search-box">
-            <h1>Hello Date Picker</h1>
+            <h2>Date Picker</h2>
             
             <DatePicker
                 selected={selectedDate}
