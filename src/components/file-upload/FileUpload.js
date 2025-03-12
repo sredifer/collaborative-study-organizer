@@ -3,7 +3,7 @@ import "./FileUpload.css";
 
 const FileUpload = () => {
   const [subject, setSubject] = useState("");
-  const [link, setLink] = useState("");
+  //const [link, setLink] = useState("");
   const [file, setFile] = useState(null);
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ const FileUpload = () => {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("subject", subject);
-    formData.append("link", link);
+    //formData.append("link", link);
 
     try {
       setLoading(true);
@@ -74,6 +74,10 @@ const FileUpload = () => {
   }, []);
 
   return (
+    <center>
+    <div class="image">
+      <img src="/images/file-upload-logo.png" width="250" height="250"></img>
+    </div>
     <div className="upload-container">
       <h2>Upload Your Study Materials Here!</h2>
 
@@ -92,19 +96,20 @@ const FileUpload = () => {
           placeholder="Enter Subject/Topic"
           onChange={(e) => setSubject(e.target.value)}
         />
-        <input
+        {/*<input
           type="url"
           name="link"
           value={link}
           placeholder="Enter a Link (optional)"
           onChange={(e) => setLink(e.target.value)}
-        />
+        />*/}
         <button type="submit" disabled={loading}>
           {loading ? "Uploading..." : "Upload"}
         </button>
       </form>
-
-      {/* filter dropdown menu */}
+    </div>
+    {/* filter dropdown menu */}
+    <center>
       <div className="filter-container">
         <label htmlFor="subjectFilter">Filter by Subject:</label>
         <select id="subjectFilter" value={filter} onChange={handleFilterChange}>
@@ -119,10 +124,11 @@ const FileUpload = () => {
             ))}
         </select>
       </div>
+      </center>
 
       {/* html to display uploaded files */}
       <div className="file-list">
-        <h3>Uploaded Files</h3>
+        <h3><center>Uploaded Files</center></h3>
         <div id="fileContainer">
           {filteredFiles.map((file) => (
             <div key={file._id} className="file-item" data-subject={file.subject}>
@@ -147,7 +153,7 @@ const FileUpload = () => {
           ))}
         </div>
       </div>
-    </div>
+    </center>
   );
 };
 

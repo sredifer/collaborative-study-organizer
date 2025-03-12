@@ -12,17 +12,23 @@
 .upload-container {
     background: white;
     padding: 20px;
-    margin: 20px;
+    /*margin: 10px;*/
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 500px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    /*margin-top: 5%;*/
+    border-style: double;
+    border-color: #c54b55;
+    border-width: 10px;
+    /*float: left;*/
 }
 
 .upload-container h2 {
-    font-family: Comic Sans MS, Comic Sans, cursive;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     margin-bottom: 10px;
     font-size: 20px;
     color: #333;
@@ -38,20 +44,20 @@
 
 .upload-form input,
 .upload-form button {
-    font-family: Comic Sans MS, Comic Sans, cursive;
-    width: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 400px;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
 }
 
 .upload-form input[type="file"] {
-    font-family: Comic Sans MS, Comic Sans, cursive;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     border: none;
 }
 
 .upload-form button {
-    font-family: Comic Sans MS, Comic Sans, cursive;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     background-color: mistyrose;
     color: black;
     border: none;
@@ -64,11 +70,25 @@
 }
 
 .file-table {
-    width: 100%;
+    width: 400px;
     border-collapse: collapse;
+    /*align-items: center;*/
+    margin-bottom: 2%;
+    /*float: right;
+    display: column;
+    margin-right: 5%;*/
 }
 
 .file-table td {
     padding: 5px;
-    border-bottom: 1px solid #a23636;
+    border: 1px solid #a23636;
+    align-items: center;
+}
+
+.file-table tr:last-child {
+    background-color: #e2858573;
+}
+
+.filter-container {
+    margin-top: 2%;
 }
