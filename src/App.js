@@ -7,6 +7,7 @@ import SearchBar from "./components/study-library-feature/study-library-feature"
 import resourcesData from "./components/Study-library-resources-data.json";
 import SearchBox from "./components/tag-search-bar";
 import optionArray from "./components/constants/options";
+import TodoList from "./components/todo-list/TodoList";
 import Timer from "./components/timer/Timer"; // Timer component
 import Settings from "./components/timer/Settings"; // Settings component
 import SettingsContext from "./components/timer/SettingsContext"; // Settings context
@@ -38,6 +39,7 @@ function App() {
 
 
   return (
+
     <SettingsContext.Provider
       value={{
         workMinutes,

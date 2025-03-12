@@ -1,0 +1,145 @@
+/* Modal Overlay: covers the viewport and centers its content */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content: white background, padding, rounded corners, subtle shadow */
+.modal-content {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #555;
+}
+.close-button:hover {
+  color: #222;
+}
+
+/* Form & View Elements */
+/* This rule applies to all labels in modal content, modal forms, and modal views */
+.modal-content label,
+.modal-form label,
+.modal-view p {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Inputs, selects, and textareas inside modal forms or modal content */
+.modal-content input,
+.modal-content textarea,
+.modal-form input,
+.modal-form textarea,
+.modal-form select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.modal-form input[type="color"],
+.modal-content input[type="color"] {
+  height: 40px;           
+  padding: 8px;            /* Match padding of text inputs */
+  border: 1px solid #767676;  /* Same border as text inputs */
+  border-radius: 2px;      /* Match rounded corners of text inputs*/
+  box-sizing: border-box;  
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+
+/* Modal Buttons Container */
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.modal-buttons button {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+/* Button Group Variations */
+
+/* For view modals: ensure the right-buttons are pushed to the right */
+.modal-buttons-view .right-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+/* For edit modals: split into left and right groups */
+.modal-buttons-edit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.modal-buttons-edit .left-buttons,
+.modal-buttons-edit .right-buttons {
+  display: flex;
+  gap: 10px;
+}
+.modal-buttons-edit .right-buttons {
+  margin-left: auto;
+}
+
+/* Button Styles */
+.primary-button {
+  background-color: #298ed1;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.primary-button:hover {
+  background-color: #2980b9;
+}
+.neutral-button,
+.delete-button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
+.neutral-button:hover,
+.delete-button:hover {
+  background: #f0f0f0;
+}
+
+/* Divider for separating modal sections */
+.modal-divider {
+  margin: 15px 0;
+  border: 0.5px solid #ccc;
+}
