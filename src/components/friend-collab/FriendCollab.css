@@ -1,0 +1,269 @@
+/* Style for the overall container */
+.friend-collab-container {
+    /*background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 5%;*/
+    padding: 1.5rem;
+    min-height: 100vh;
+    background-color: #F9EDDC;
+    color: #4A4A4A;
+  }
+
+  .friend-collab-card {
+    /*background-color: rgb(228, 189, 189);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    max-width: 1000px;*/
+    /*margin: auto;*/
+    /*margin-top: 5%;*/
+    background-color: #D6CDEA;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Header styles */
+  .friend-collab-header {
+    font-size: 24px;
+    font-weight: bold;
+    /*text-align: center;*/
+    color: #ecaaaa;
+    margin-bottom: 20px;
+  }
+  
+  /* Input and button styles */
+  .friend-collab-input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .friend-collab-input,
+  .friend-collab-button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .friend-collab-input {
+    flex-grow: 1;
+  }
+  
+  .friend-collab-button {
+    background-color: #B4E4C9;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .friend-collab-button:hover {
+    background-color: #A2D1B3;
+  }
+  
+  /* List styles for friends */
+  .friend-collab-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .friend-collab-list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #D6CDEA;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .friend-collab-button-remove {
+    background-color: #FDFD96;
+    color: #333;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .friend-collab-button-remove:hover {
+    background-color: #F4F4A6;
+  }
+
+  .friend-collab-card-title{
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .friend-collab-flex-container{
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .friend-collab-input{
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+  }
+
+  .friend-collab-button{
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .friend-collab-add-button{
+    background-color: #B4E4C9;
+    color: #4A4A4A;
+  }
+
+  .friend-collab-invite-button{
+    background-color: #FDFD96;
+    color: #4A4A4A;
+  }
+
+  .friend-collab-remove-button{
+    background-color: #f87171; /* bg-red-500 */
+    color: white; /* text-white */
+    padding: 0.25rem 0.5rem; /* p-1 */
+    border-radius: 4px; /* rounded-md */
+    border: none;
+    cursor: pointer;
+  }
+
+  .friend-collab-remove-button:hover {
+    background-color: #dc2626;
+  }
+
+  .friend-collab-post-button{
+    background-color: #AEC6CF; /* Light blue */
+    color: #2D3748; /* text-gray-800 */
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .friend-collab-post-button:hover{
+    background-color: #8AA6B6;
+  }
+
+  .friend-collab-list {
+    list-style-type: disc;
+    padding-left: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .friend-collab-list-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .friend-collab-icons{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .friend-collab-study-sessions{
+    background-color: #FFC0CB; /* Pink background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+    border-radius: 8px; /* rounded-lg */
+    padding: 1.5rem; /* p-6 */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* space-y-4 */
+  }
+
+  .friend-collab-study-sessions h2{
+    font-size: 1.25rem; /* text-xl */
+    font-weight: bold; /* font-bold */
+  }
+
+  .friend-collab-study-sessions u1{
+    list-style-type: disc; /* list-disc */
+    padding-left: 1.25rem; /* pl-5 */
+    font-size: 1rem; /* text-md */
+  }
+
+  .friend-collab-study-sessions li{
+    padding: 0.5rem 0; /* py-2 */
+    border-bottom: 1px solid #ccc; /* border-b */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .friend-collab-chat-title{
+    font-size: 1.125rem; /* 18px */
+    font-weight: bold;
+    margin-top: 1rem; /* 16px */
+  }
+
+  .friend-collab-chat-input{
+    padding: 0.5rem; /* p-2 */
+    border: 1px solid #ccc;
+    border-radius: 4px; /* rounded-md */
+    margin-bottom: 0.5rem; /* mb-2 */
+    width: 100%; /* w-full */
+  }
+
+  .friend-collab-shared-notes{
+    background-color: #E8D9CD; /* Beige background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .friend-collab-shared-notes h2{
+    font-size: 1.25rem; /* text-xl */
+    font-weight: bold; /* font-bold */
+  }
+
+  .friend-collab-shared-notes u1{
+    list-style-type: disc; /* list-disc */
+    padding-left: 1.25rem; /* pl-5 (20px) */
+    margin-top: 0.5rem; /* mt-2 (8px) */
+    font-size: 1rem; /* text-md (16px) */
+  }
+
+  .friend-collab-shared-notes li{
+    padding-top: 0.5rem; /* py-2 (8px) */
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd; /* border-b */
+  }
+
+  .friend-collab-shared-notes textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    white-space: pre-line;
+  }
+
+  .friend-collab-shared-notes pre {
+    white-space: pre-line;
+}
+
+  .friend-collab-add-note-button {
+    background-color: #B4E4C9; /* Green background */
+    color: #2D3748;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .friend-collab-add-note-button:hover{
+    background-color: #91C2A6;
+  }

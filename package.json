@@ -1,7 +1,7 @@
 {
     "name": "react.dev",
     "version": "0.0.0",
-    "main": "",
+    "main": "src/file-upload/File-Upload-Server.js",
     "scripts": {
         "dev": "react-scripts start",
         "start": "react-scripts start",
@@ -15,8 +15,21 @@
         "@fullcalendar/interaction": "^6.1.15",
         "@fullcalendar/react": "^6.1.15",
         "@fullcalendar/timegrid": "^6.1.15",
+        "@shadcn/ui": "^0.0.4",
+        "bcryptjs": "^3.0.2",
+        "canvas-confetti": "^1.9.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "express-validator": "^7.2.1",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.12.1",
+        "multer": "^1.4.5-lts.1",
+        "pg": "^8.13.3",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+        "react-range-slider-input": "^3.2.1",
+        "react-router-dom": "^7.3.0",
         "react-scripts": "5.0.1"
     },
     "browserslist": {
