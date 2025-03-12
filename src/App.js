@@ -58,6 +58,7 @@ function App() {
         </Routes>
         ) : (
         <div>
+          <center>
           <nav>
             <ul>
               <li>
@@ -70,10 +71,11 @@ function App() {
                 <Link to="/friend-collaboration">Friends!</Link> {/* Link to the friend collaboration page */}
               </li>
               <li>
-                <Link to="/file-upload">File Upload</Link> {/* Link to the file upload page */}
+                <Link to="/file-upload">Upload Notes</Link> {/* Link to the file upload page */}
               </li>
             </ul>
           </nav>
+          </center>
 
 
           <Routes>
@@ -97,7 +99,11 @@ function App() {
               path="/"
               element={
                 <>
-                  <h1>Pomodoro Timer</h1>
+                  <center>
+                  <div class="logo">
+                    <img src="/images/timer-page-logo.png" width="545" height="185"></img>
+                  </div>
+                  </center>
                   {showSettings ? (
                     <Settings setShowSettings={setShowSettings} />
                   ) : (

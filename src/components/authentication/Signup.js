@@ -46,7 +46,12 @@ const Signup = ({ onSignupSuccess }) => {
     };
 
     return (
-        <div>
+        
+        <center>
+        <div class="main-logo">
+            <img src="/images/front-page-logo.png" width="700" height="250"></img>
+        </div>
+        <div className="login-signup">
             <h2>Signup</h2>
             <form onSubmit={handleSubmit}>
                 <input
@@ -55,23 +60,27 @@ const Signup = ({ onSignupSuccess }) => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
+                <br></br>
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                <br></br>
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Signup</button>
+                <br></br>
+                <button type="submit"><u>Signup</u></button>
             </form>
             {error && <p>{error}</p>}
-            <p>Already have an account? <button onClick={() => navigate("/login")}>Login</button></p>
+            <p>Already have an account? <button onClick={() => navigate("/login")}><u>Login</u></button></p>
         </div>
+        </center>
     );
 };
 

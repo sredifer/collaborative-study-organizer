@@ -76,10 +76,10 @@ const FileUpload = () => {
   return (
     <center>
     <div class="image">
-      <img src="/images/file-upload-logo.png" width="250" height="250"></img>
+      <img src="/images/file-page-logo.png" width="455" height="175"></img>
     </div>
     <div className="upload-container">
-      <h2>Upload Your Study Materials Here!</h2>
+      <h2>Upload Your Notes/Study Materials Here!</h2>
 
       {/* file upload form */}
       <form className="upload-form" onSubmit={handleSubmit}>

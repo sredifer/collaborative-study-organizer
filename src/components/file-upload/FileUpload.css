@@ -28,7 +28,7 @@
 }
 
 .upload-container h2 {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: OCR A Std, monospace;
     margin-bottom: 10px;
     font-size: 20px;
     color: #333;
@@ -44,7 +44,7 @@
 
 .upload-form input,
 .upload-form button {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: OCR A Std, monospace;
     width: 400px;
     padding: 10px;
     border-radius: 5px;
@@ -52,12 +52,12 @@
 }
 
 .upload-form input[type="file"] {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: OCR A Std, monospace;
     border: none;
 }
 
 .upload-form button {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: OCR A Std, monospace;
     background-color: mistyrose;
     color: black;
     border: none;
@@ -74,9 +74,9 @@
     border-collapse: collapse;
     /*align-items: center;*/
     margin-bottom: 2%;
-    /*float: right;
+    float: left;
     display: column;
-    margin-right: 5%;*/
+    margin-left: 6%;
 }
 
 .file-table td {

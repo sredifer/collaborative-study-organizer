@@ -21,6 +21,7 @@ export default function Settings({setShowSettings}) {
         >
           ✖
         </button>
+        <center>
         <div style={{ marginBottom: '40px' }}>
             <div style={{ marginBottom: '10px' }}>Study time (in minutes): {workMinutes}</div>
             <Slider value={workMinutes} onChange={setWorkMinutes} />
@@ -30,14 +31,17 @@ export default function Settings({setShowSettings}) {
             <div style={{ marginBottom: '10px' }}>Break time (in minutes): {breakMinutes}</div>
             <Slider value={breakMinutes} onChange={setBreakMinutes} />
         </div>
-
+        </center>
+        <center>
         <label style={{marginBottom: '40px'}}> Number of pomodoro cycles:
-        <input name="pomodoros" style={{marginTop: '10px'}} type="number" 
-      value={totalPomodoros} 
-      onChange={(e) => setTotalPomodoros(Number(e.target.value))}/>
-      </label>
+        <input name="pomodoros" style={{marginTop: '10px', width:'40px'}} type="number"
+            value={totalPomodoros} 
+            onChange={(e) => setTotalPomodoros(Number(e.target.value))}/>
+        </label>
+        </center>
 
       </div>
+      
     );
 };
 

@@ -3,6 +3,7 @@ import 'react-range-slider-input/dist/style.css';
 
 const Slider = ({ value, onChange }) => {
     return (
+      <center>
       <div style={{ width: '350px' }}>
         <RangeSlider
           className="single-thumb"
@@ -14,6 +15,7 @@ const Slider = ({ value, onChange }) => {
           rangeSlideDisabled={true}
         />
         </div>
+        </center>
     );
 }
 
