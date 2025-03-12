@@ -13,6 +13,7 @@ import Settings from "./components/timer/Settings"; // Settings component
 import SettingsContext from "./components/timer/SettingsContext"; // Settings context
 import FriendCollaboration from "./components/friend-collab/FriendCollab";
 import FileUpload from "./components/file-upload/FileUpload";
+//import DateSearchBar from "./components/search-by-date/search-by-date";
 import './App.css';
 
 
@@ -70,10 +71,16 @@ function App() {
                 <Link to="/calendar">Calendar</Link> {/* Link to the calendar page */}
               </li>
               <li>
+                <Link to="/todo-list">To-Do</Link> {/* Link to the calendar page */}
+              </li>
+              <li>
                 <Link to="/friend-collaboration">Friends!</Link> {/* Link to the friend collaboration page */}
               </li>
               <li>
                 <Link to="/file-upload">Upload Notes</Link> {/* Link to the file upload page */}
+              </li>
+              <li>
+                <Link to="/search">Search</Link> {/* Link to the search page */}
               </li>
             </ul>
           </nav>
@@ -93,6 +100,34 @@ function App() {
                   </center>
                   <Calendar />
                   <br />
+                </>
+              }
+            />
+
+            {/* Route for todolist */}
+            <Route
+            
+              path = "todo-list"
+              element = {
+                <>
+                <center>
+                  <div class="logo">
+                    <img src="/images/todo-page-logo.png" width="600" height="112"></img>
+                  </div>
+                </center>
+                <TodoList />
+                </>
+              }
+            />
+
+            {/* Route for search */}
+            <Route
+            
+              path = "search"
+              element = {
+                <>
+                {/*<DateSearchBar/>
+                  <br />*/}
                   <SearchBar placeholder="Search for a study resource" data={resourcesData} />
                   <br />
                   <SearchBox options={options} onChange={newOptions => setOptions(newOptions)}/>

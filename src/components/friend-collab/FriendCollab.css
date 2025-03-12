@@ -9,9 +9,12 @@
     margin: auto;
     margin-top: 5%;*/
     padding: 1.5rem;
-    min-height: 100vh;
-    background-color: #F9EDDC;
+    /*min-height: 100vh;*/
+    max-width: 1000px;
+    /*background-color: white;*/
     color: #4A4A4A;
+    /*border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
   }
 
   .friend-collab-card {
@@ -23,11 +26,12 @@
     max-width: 1000px;*/
     /*margin: auto;*/
     /*margin-top: 5%;*/
-    background-color: #D6CDEA;
+    background-color: #ecaaaa;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
+    max-width: 600px;
   }
   
   /* Header styles */
@@ -46,12 +50,12 @@
     margin-bottom: 20px;
   }
   
-  .friend-collab-input,
+  /*.friend-collab-input,
   .friend-collab-button {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
-  }
+  }*/
   
   .friend-collab-input {
     flex-grow: 1;
@@ -65,7 +69,7 @@
   }
   
   .friend-collab-button:hover {
-    background-color: #A2D1B3;
+    background-color: rgb(249, 186, 180);
   }
   
   /* List styles for friends */
@@ -78,7 +82,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    background-color: #D6CDEA;
+    background-color: white;
     margin-bottom: 10px;
     border-radius: 5px;
   }
@@ -109,6 +113,7 @@
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 0.375rem;
+    margin-left: 18px;
   }
 
   .friend-collab-button{
@@ -120,13 +125,15 @@
   }
   
   .friend-collab-add-button{
-    background-color: #B4E4C9;
+    background-color: mistyrose;
     color: #4A4A4A;
   }
 
   .friend-collab-invite-button{
-    background-color: #FDFD96;
+    background-color: #ecaaaa;
     color: #4A4A4A;
+    width: 80px;
+    margin-right: 10px;
   }
 
   .friend-collab-remove-button{

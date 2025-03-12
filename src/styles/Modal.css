@@ -113,21 +113,24 @@
 
 /* Button Styles */
 .primary-button {
-  background-color: #298ed1;
+  background-color: #cf5175 !important;
   color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
+  min-width: 120px; /* Ensures it has enough width */
+  display: inline-block; /* Keeps it aligned properly */
 }
 .primary-button:hover {
-  background-color: #2980b9;
+  background-color: #c02853 !important;
 }
 .neutral-button,
 .delete-button {
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  min-width: 80px;
   background: white;
   cursor: pointer;
   text-align: center;
@@ -138,8 +141,50 @@
   background: #f0f0f0;
 }
 
+/* Reduce extra space between "Goals:" and the list */
+.goals-list {
+  margin-top: 5px;
+}
+
 /* Divider for separating modal sections */
 .modal-divider {
   margin: 15px 0;
   border: 0.5px solid #ccc;
+}
+
+.fc-toolbar-chunk {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust spacing between buttons */
+}
+
+.fc-toolbar-title {
+  font-size: 1.5rem; /* Adjust title size if needed */
+}
+
+.fc-button-group button {
+  /* padding: 8px 16px; Makes the buttons wider */
+  /* min-width: 80px; Ensures buttons don’t collapse */
+  flex: 1;
+}
+
+.fc-button-group {
+  display: flex;
+  /*gap: 5px; Spaces out the buttons */
+}
+
+.fc-toolbar .fc-button {
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.fc-button {
+  background-color: #cf5175 !important;
+  padding: 8px 16px !important; /* Ensures consistent button size */
+  min-width: 80px; /* Makes sure text has enough space */
+  text-align: center;
+}
+
+.fc-prev-button, .fc-next-button {
+  min-width: 60px;
+  padding: 8px;
 }

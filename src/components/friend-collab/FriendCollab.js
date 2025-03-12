@@ -65,6 +65,7 @@ export default function FriendCollaboration() {
   };
 
   return (
+    <center>
     <div className="friend-collab-container">
       <h3 className="friend-collab-header">{ambientStatus}</h3>
       <div className="friend-collab-card">
@@ -151,5 +152,6 @@ export default function FriendCollaboration() {
           </ul>
         </div>
     </div>
+    </center>
   );
 }
