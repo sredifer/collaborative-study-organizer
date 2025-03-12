@@ -4,6 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "./Calendar.css";
+import "../../styles/Modal.css";
 
 const Calendar = () => {
   // State for study sessions
@@ -12,7 +13,7 @@ const Calendar = () => {
     { id: "2", title: "History Discussion", date: "2024-02-26" }
   ]);
 
-  // Helper function to format time (e.g., "14:30" -> "2:30 PM")
+  // Helper function to format time (eg., 14:30 -> 2:30 PM)
   const formatTime = (timeStr) => {
     if (!timeStr) return "N/A";
     const [hourStr, minuteStr] = timeStr.split(':');
@@ -59,13 +60,13 @@ const Calendar = () => {
     goals: ""
   });
 
-  // When a date cell is clicked, open the new event modal with the date pre-filled.
+  // When a date cell is clicked, open the new event modal with the date pre-filled
   const handleDateClick = (info) => {
     const clickedDate = info.date;
-    // Extract the date portion in ISO format (YYYY-MM-DD)
+    // Extract the date portion
     const isoDateStr = clickedDate.toISOString().split("T")[0];
     let startTime = "";
-    // If the click is on a time slot (not an all-day cell), extract the time.
+    // If the click is on a time slot (not an all-day cell), extract the time
     if (!info.allDay) {
       startTime = clickedDate.toLocaleTimeString('en-US', {
         hour: '2-digit',
@@ -85,37 +86,56 @@ const Calendar = () => {
   };
   
 
-  // Handle form submission for new events.
+  // Handle form submission for new events
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    let eventDate = formData.date;
-    if (formData.startTime) {
-      eventDate = `${formData.date}T${formData.startTime}:00`;
+  
+    // Validate times: if both are provided, ensure the end time is after the start time
+    if (formData.startTime && formData.endTime) {
+      const start = new Date(`1970-01-01T${formData.startTime}:00`);
+      const end = new Date(`1970-01-01T${formData.endTime}:00`);
+      if (end <= start) {
+        alert("End time must be after start time.");
+        return;
+      }
     }
+  
+    // Build the start and end datetime strings
+    const startDateTime = formData.startTime
+      ? `${formData.date}T${formData.startTime}:00`
+      : formData.date;
+    const endDateTime = formData.endTime
+      ? `${formData.date}T${formData.endTime}:00`
+      : null; // if no end time, we leave it as null
+  
     const newEvent = {
       id: Date.now().toString(),
       title: formData.title,
-      date: eventDate,
+      start: startDateTime, 
+      end: endDateTime,    
       backgroundColor: formData.color,
       extendedProps: {
+        startTime: formData.startTime, 
         endTime: formData.endTime,
         color: formData.color,
         goals: formData.goals.split("\n").filter((g) => g.trim() !== "")
       }
     };
+  
     setEvents([...events, newEvent]);
     setModalVisible(false);
-  };
+  };  
+  
 
-  // When an event is clicked, open the view modal (read-only) with its info.
+  // When an event is clicked, open the view modal (read-only) with its info
   const handleEventClick = (clickInfo) => {
     const event = clickInfo.event;
     const dateObj = event.start;
 
-    // Store the date in ISO format (YYYY-MM-DD) for proper input handling.
+    // Store the date in ISO format (YYYY-MM-DD) for proper input handling
     const isoDateStr = dateObj.toISOString().split("T")[0];
 
-    // Format the time in local format for display.
+    // Format the time in local format for display
     const timeStr = dateObj.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
@@ -129,47 +149,68 @@ const Calendar = () => {
       id: event.id,
       title: event.title,
       date: isoDateStr,
-      startTime: timeStr,
-      endTime: endTime,
+      startTime: event.extendedProps.startTime, 
+      endTime: event.extendedProps.endTime || "",
       color: event.extendedProps.color || "#3788d8",
-      goals: goals
+      goals: event.extendedProps.goals ? event.extendedProps.goals.join("\n") : ""
     });
+    
     setViewModalVisible(true);
   };
 
-  // From the view modal, if the user clicks "Edit", prefill the edit modal with the same data.
+  // From the view modal, if the user clicks "Edit", prefill the edit modal with the same data
   const handleViewToEdit = () => {
     setEditFormData({ ...viewFormData });
     setViewModalVisible(false);
     setEditModalVisible(true);
   };
 
-  // Submit changes from the edit modal.
+  // Submit changes from the edit modal
   const handleEditFormSubmit = (e) => {
     e.preventDefault();
-    let eventDate = editFormData.date;
-    if (editFormData.startTime) {
-      eventDate = `${editFormData.date}T${editFormData.startTime}:00`;
+  
+    // Validate times: if both are provided, ensure the end time is after the start time
+    if (editFormData.startTime && editFormData.endTime) {
+      const start = new Date(`1970-01-01T${editFormData.startTime}:00`);
+      const end = new Date(`1970-01-01T${editFormData.endTime}:00`);
+      if (end <= start) {
+        alert("End time must be after start time.");
+        return;
+      }
     }
+  
+    // Build the start and end datetime strings
+    const startDateTime = editFormData.startTime
+      ? `${editFormData.date}T${editFormData.startTime}:00`
+      : editFormData.date;
+    const endDateTime = editFormData.endTime
+      ? `${editFormData.date}T${editFormData.endTime}:00`
+      : null;
+  
     const updatedEvent = {
       id: editFormData.id,
       title: editFormData.title,
-      date: eventDate,
+      start: startDateTime,
+      end: endDateTime,
       backgroundColor: editFormData.color,
       extendedProps: {
+        startTime: editFormData.startTime,
         endTime: editFormData.endTime,
         color: editFormData.color,
         goals: editFormData.goals.split("\n").filter((g) => g.trim() !== "")
       }
     };
-
+  
     setEvents(
       events.map((ev) => (ev.id === updatedEvent.id ? updatedEvent : ev))
     );
     setEditModalVisible(false);
   };
+  
+  
+  
 
-  // Delete an event (from view or edit modal).
+  // Delete an event (from view or edit modal)
   const handleDeleteEvent = () => {
     if (window.confirm("Are you sure you want to delete this session?")) {
       setEvents(events.filter((ev) => ev.id !== editFormData.id));
@@ -197,91 +238,94 @@ const Calendar = () => {
       {/* New Event Modal */}
       {modalVisible && (
         <div className="modal-overlay">
-          <div className="modal">
+          <div className="modal-content">
             {/* Top right close button */}
-            <button className="close-button" onClick={() => setModalVisible(false)}>✖</button>
-            <h3>Schedule a New Study Session</h3>
-            <form onSubmit={handleFormSubmit}>
-              <div>
-                <label>Session Title:</label>
-                <input
-                  type="text"
-                  value={formData.title}
-                  onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
-                  }
-                  required
-                />
-              </div>
-              <div>
-                <label>Date:</label>
-                <input
-                  type="date"
-                  value={formData.date}
-                  onChange={(e) =>
-                    setFormData({ ...formData, date: e.target.value })
-                  }
-                  required
-                />
-              </div>
-              <div>
-                <label>Start Time:</label>
-                <input
-                  type="time"
-                  value={formData.startTime}
-                  onChange={(e) =>
-                    setFormData({ ...formData, startTime: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label>End Time:</label>
-                <input
-                  type="time"
-                  value={formData.endTime}
-                  onChange={(e) =>
-                    setFormData({ ...formData, endTime: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label>Color:</label>
-                <input
-                  type="color"
-                  value={formData.color}
-                  onChange={(e) =>
-                    setFormData({ ...formData, color: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label>Goals (one per line):</label>
-                <textarea
-                  value={formData.goals}
-                  onChange={(e) =>
-                    setFormData({ ...formData, goals: e.target.value })
-                  }
-                  placeholder="e.g., Finish problem 2 for homework 1"
-                />
-              </div>
-              <hr className="modal-divider" />
-              <div className="modal-buttons">
-                <button type="button" onClick={() => setModalVisible(false)} className="neutral-button">
-                  Cancel
-                </button>
-                <button type="submit" className="primary-button">Save Session</button>
-              </div>
-            </form>
+            <button className="close-button" onClick={() => setModalVisible(false)}>×</button>
+            <div className="modal-form">
+              <h3>Schedule a New Study Session</h3>
+              <form onSubmit={handleFormSubmit}>
+                <label>
+                  Session Title:
+                  <input
+                    type="text"
+                    value={formData.title}
+                    onChange={(e) =>
+                      setFormData({ ...formData, title: e.target.value })
+                    }
+                    required
+                  />
+                </label>
+                <label>
+                  Date:
+                  <input
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) =>
+                      setFormData({ ...formData, date: e.target.value })
+                    }
+                    required
+                  />
+                </label>
+                <label>
+                  Start Time:
+                  <input
+                    type="time"
+                    value={formData.startTime}
+                    onChange={(e) =>
+                      setFormData({ ...formData, startTime: e.target.value })
+                    }
+                  />
+                </label>
+                <label>
+                  End Time:
+                  <input
+                    type="time"
+                    value={formData.endTime}
+                    onChange={(e) =>
+                      setFormData({ ...formData, endTime: e.target.value })
+                    }
+                  />
+                </label>
+                <label>
+                  Color:
+                  <input
+                    type="color"
+                    value={formData.color}
+                    onChange={(e) =>
+                      setFormData({ ...formData, color: e.target.value })
+                    }
+                  />
+                </label>
+                <label>
+                  Goals (one per line):
+                  <textarea
+                    value={formData.goals}
+                    onChange={(e) =>
+                      setFormData({ ...formData, goals: e.target.value })
+                    }
+                    placeholder="e.g., Finish problem 2 for homework 1"
+                  />
+                </label>
+                <hr className="modal-divider" />
+                <div className="modal-buttons">
+                  <button type="button" onClick={() => setModalVisible(false)} className="neutral-button">
+                    Cancel
+                  </button>
+                  <button type="submit" className="primary-button">Save Session</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       )}
 
+
       {/* View Event Modal */}
       {viewModalVisible && (
         <div className="modal-overlay">
-          <div className="modal">
+          <div className="modal-content">
             {/* Top right close button */}
-            <button className="close-button" onClick={() => setViewModalVisible(false)}>✖</button>
+            <button className="close-button" onClick={() => setViewModalVisible(false)}>×</button>
             <h3>Session Details</h3>
             <div>
               <strong>Title:</strong> {viewFormData.title}
@@ -294,12 +338,16 @@ const Calendar = () => {
                 year: 'numeric'
               })}
             </div>
-            <div>
-              <strong>Start Time:</strong> {formatTime(viewFormData.startTime)}
-            </div>
-            <div>
-              <strong>End Time:</strong> {formatTime(viewFormData.endTime)}
-            </div>
+            {viewFormData.startTime && (
+              <div>
+                <strong>Start Time:</strong> {formatTime(viewFormData.startTime)}
+              </div>
+            )}
+            {viewFormData.endTime && (
+              <div>
+                <strong>End Time:</strong> {formatTime(viewFormData.endTime)}
+              </div>
+            )}
             <div>
               <strong>Color:</strong>{" "}
               <span
@@ -314,18 +362,21 @@ const Calendar = () => {
                 }}
               ></span>
             </div>
-            <div>
-              <strong>Goals:</strong>
-              {viewFormData.goals ? (
+            {viewFormData.goals &&
+            viewFormData.goals.split("\n").filter(goal => goal.trim() !== "").length > 0 && (
+              <div>
+                <strong>Goals:</strong>
                 <ul className="goals-list">
-                  {viewFormData.goals.split("\n").map((goal, idx) => (
-                    <li key={idx}>{goal}</li>
-                  ))}
+                  {viewFormData.goals
+                    .split("\n")
+                    .filter(goal => goal.trim() !== "")
+                    .map((goal, idx) => (
+                      <li key={idx}>{goal}</li>
+                    ))}
                 </ul>
-              ) : (
-                <span>None</span>
-              )}
-            </div>
+              </div>
+            )}
+
 
             <hr className="modal-divider" />
             <div className="modal-buttons modal-buttons-view">
@@ -345,9 +396,9 @@ const Calendar = () => {
       {/* Edit Event Modal */}
       {editModalVisible && (
         <div className="modal-overlay">
-          <div className="modal">
+          <div className="modal-content">
             {/* Top right close button */}
-            <button className="close-button" onClick={() => setEditModalVisible(false)}>✖</button>
+            <button className="close-button" onClick={() => setEditModalVisible(false)}>×</button>
             <h3>Edit Study Session</h3>
             <form onSubmit={handleEditFormSubmit}>
               <div>
