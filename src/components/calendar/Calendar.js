@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// Calendar.js
+import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -6,12 +7,25 @@ import interactionPlugin from "@fullcalendar/interaction";
 import "./Calendar.css";
 import "../../styles/Modal.css";
 
-const Calendar = () => {
-  // State for study sessions
-  const [events, setEvents] = useState([
-    { id: "1", title: "Math Study Group", date: "2024-02-24" },
-    { id: "2", title: "History Discussion", date: "2024-02-26" }
-  ]);
+const Calendar = ({ events: checklistEvents = [], updateTask, deleteTask }) => {
+  // Load study sessions from localStorage, or initialize with defaults
+  const [sessionEvents, setSessionEvents] = useState(() => {
+    const stored = localStorage.getItem("sessionEvents");
+    return stored
+      ? JSON.parse(stored)
+      : [
+          { id: "1", title: "Math Study Group", start: "2024-02-24" },
+          { id: "2", title: "History Discussion", start: "2024-02-26" }
+        ];
+  });
+
+  // Save study sessions to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("sessionEvents", JSON.stringify(sessionEvents));
+  }, [sessionEvents]);
+
+  // Combine study sessions with checklist events passed via props
+  const allEvents = [...sessionEvents, ...checklistEvents];
 
   // Helper function to format time (eg., 14:30 -> 2:30 PM)
   const formatTime = (timeStr) => {
@@ -25,7 +39,7 @@ const Calendar = () => {
     return `${hour}:${minute} ${ampm}`;
   };
 
-  // State for creating a new event
+  // State for creating a new study session event
   const [modalVisible, setModalVisible] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -45,7 +59,8 @@ const Calendar = () => {
     startTime: "",
     endTime: "",
     color: "#3788d8",
-    goals: ""
+    goals: "",
+    isChecklist: false
   });
 
   // State for editing an event (separate from viewing)
@@ -57,16 +72,15 @@ const Calendar = () => {
     startTime: "",
     endTime: "",
     color: "#3788d8",
-    goals: ""
+    goals: "",
+    isChecklist: false
   });
 
-  // When a date cell is clicked, open the new event modal with the date pre-filled
+  // When a date cell is clicked, open the new event modal with the date pre-filled (for study sessions)
   const handleDateClick = (info) => {
     const clickedDate = info.date;
-    // Extract the date portion
     const isoDateStr = clickedDate.toISOString().split("T")[0];
     let startTime = "";
-    // If the click is on a time slot (not an all-day cell), extract the time
     if (!info.allDay) {
       startTime = clickedDate.toLocaleTimeString('en-US', {
         hour: '2-digit',
@@ -84,13 +98,11 @@ const Calendar = () => {
     });
     setModalVisible(true);
   };
-  
 
-  // Handle form submission for new events
+  // Handle form submission for new study session events
   const handleFormSubmit = (e) => {
     e.preventDefault();
-  
-    // Validate times: if both are provided, ensure the end time is after the start time
+
     if (formData.startTime && formData.endTime) {
       const start = new Date(`1970-01-01T${formData.startTime}:00`);
       const end = new Date(`1970-01-01T${formData.endTime}:00`);
@@ -99,49 +111,38 @@ const Calendar = () => {
         return;
       }
     }
-  
-    // Build the start and end datetime strings
+
     const startDateTime = formData.startTime
       ? `${formData.date}T${formData.startTime}:00`
       : formData.date;
     const endDateTime = formData.endTime
       ? `${formData.date}T${formData.endTime}:00`
-      : null; // if no end time, we leave it as null
-  
+      : null;
+
     const newEvent = {
       id: Date.now().toString(),
       title: formData.title,
-      start: startDateTime, 
-      end: endDateTime,    
+      start: startDateTime,
+      end: endDateTime,
       backgroundColor: formData.color,
       extendedProps: {
-        startTime: formData.startTime, 
+        startTime: formData.startTime,
         endTime: formData.endTime,
         color: formData.color,
-        goals: formData.goals.split("\n").filter((g) => g.trim() !== "")
+        goals: formData.goals.split("\n").filter((g) => g.trim() !== ""),
+        isChecklist: false // study session event
       }
     };
-  
-    setEvents([...events, newEvent]);
+
+    setSessionEvents([...sessionEvents, newEvent]);
     setModalVisible(false);
-  };  
-  
+  };
 
   // When an event is clicked, open the view modal (read-only) with its info
   const handleEventClick = (clickInfo) => {
     const event = clickInfo.event;
     const dateObj = event.start;
-
-    // Store the date in ISO format (YYYY-MM-DD) for proper input handling
     const isoDateStr = dateObj.toISOString().split("T")[0];
-
-    // Format the time in local format for display
-    const timeStr = dateObj.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    });
-
     const endTime = event.extendedProps.endTime || "";
     const goals = event.extendedProps.goals ? event.extendedProps.goals.join("\n") : "";
 
@@ -149,16 +150,17 @@ const Calendar = () => {
       id: event.id,
       title: event.title,
       date: isoDateStr,
-      startTime: event.extendedProps.startTime, 
+      startTime: event.extendedProps.startTime,
       endTime: event.extendedProps.endTime || "",
       color: event.extendedProps.color || "#3788d8",
-      goals: event.extendedProps.goals ? event.extendedProps.goals.join("\n") : ""
+      goals: goals,
+      isChecklist: event.extendedProps.isChecklist || false
     });
-    
+
     setViewModalVisible(true);
   };
 
-  // From the view modal, if the user clicks "Edit", prefill the edit modal with the same data
+  // Transition from view modal to edit modal
   const handleViewToEdit = () => {
     setEditFormData({ ...viewFormData });
     setViewModalVisible(false);
@@ -168,8 +170,7 @@ const Calendar = () => {
   // Submit changes from the edit modal
   const handleEditFormSubmit = (e) => {
     e.preventDefault();
-  
-    // Validate times: if both are provided, ensure the end time is after the start time
+
     if (editFormData.startTime && editFormData.endTime) {
       const start = new Date(`1970-01-01T${editFormData.startTime}:00`);
       const end = new Date(`1970-01-01T${editFormData.endTime}:00`);
@@ -178,42 +179,57 @@ const Calendar = () => {
         return;
       }
     }
-  
-    // Build the start and end datetime strings
-    const startDateTime = editFormData.startTime
-      ? `${editFormData.date}T${editFormData.startTime}:00`
-      : editFormData.date;
-    const endDateTime = editFormData.endTime
-      ? `${editFormData.date}T${editFormData.endTime}:00`
-      : null;
-  
-    const updatedEvent = {
-      id: editFormData.id,
-      title: editFormData.title,
-      start: startDateTime,
-      end: endDateTime,
-      backgroundColor: editFormData.color,
-      extendedProps: {
-        startTime: editFormData.startTime,
-        endTime: editFormData.endTime,
-        color: editFormData.color,
-        goals: editFormData.goals.split("\n").filter((g) => g.trim() !== "")
-      }
-    };
-  
-    setEvents(
-      events.map((ev) => (ev.id === updatedEvent.id ? updatedEvent : ev))
-    );
+
+    if (editFormData.isChecklist && updateTask) {
+      // Convert the id back to a number
+      const updatedTask = {
+        id: Number(editFormData.id),
+        taskName: editFormData.title.replace(/^Due:\s*/, ""),
+        dueDate: editFormData.date,
+        dueTime: editFormData.startTime,
+        endTime: editFormData.endTime,  
+        color: editFormData.color,     
+        goals: editFormData.goals   
+      };
+      updateTask(updatedTask);
+    } else {
+      // For study sessions, update local state.
+      const startDateTime = editFormData.startTime
+        ? `${editFormData.date}T${editFormData.startTime}:00`
+        : editFormData.date;
+      const endDateTime = editFormData.endTime
+        ? `${editFormData.date}T${editFormData.endTime}:00`
+        : null;
+      const updatedEvent = {
+        id: editFormData.id,
+        title: editFormData.title,
+        start: startDateTime,
+        end: endDateTime,
+        backgroundColor: editFormData.color,
+        extendedProps: {
+          startTime: editFormData.startTime,
+          endTime: editFormData.endTime,
+          color: editFormData.color,
+          goals: editFormData.goals.split("\n").filter((g) => g.trim() !== ""),
+          isChecklist: false
+        }
+      };
+      setSessionEvents(
+        sessionEvents.map((ev) => (ev.id === updatedEvent.id ? updatedEvent : ev))
+      );
+    }
     setEditModalVisible(false);
   };
-  
-  
-  
 
   // Delete an event (from view or edit modal)
   const handleDeleteEvent = () => {
     if (window.confirm("Are you sure you want to delete this session?")) {
-      setEvents(events.filter((ev) => ev.id !== editFormData.id));
+      if (viewFormData.isChecklist && deleteTask) {
+        // Convert id to number before deleting
+        deleteTask(Number(viewFormData.id));
+      } else {
+        setSessionEvents(sessionEvents.filter((ev) => ev.id !== viewFormData.id));
+      }
       setEditModalVisible(false);
       setViewModalVisible(false);
     }
@@ -230,16 +246,16 @@ const Calendar = () => {
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay"
         }}
-        events={events}
+        events={allEvents}
         dateClick={handleDateClick}
         eventClick={handleEventClick}
       />
 
-      {/* New Event Modal */}
+      {/* New Event Modal for creating study sessions */}
       {modalVisible && (
         <div className="modal-overlay">
           <div className="modal-content">
-            {/* Top right close button */}
+            {/* Close button */}
             <button className="close-button" onClick={() => setModalVisible(false)}>×</button>
             <div className="modal-form">
               <h3>Schedule a New Study Session</h3>
@@ -319,12 +335,10 @@ const Calendar = () => {
         </div>
       )}
 
-
       {/* View Event Modal */}
       {viewModalVisible && (
         <div className="modal-overlay">
           <div className="modal-content">
-            {/* Top right close button */}
             <button className="close-button" onClick={() => setViewModalVisible(false)}>×</button>
             <h3>Session Details</h3>
             <div>
@@ -363,32 +377,32 @@ const Calendar = () => {
               ></span>
             </div>
             {viewFormData.goals &&
-            viewFormData.goals.split("\n").filter(goal => goal.trim() !== "").length > 0 && (
-              <div>
-                <strong>Goals:</strong>
-                <ul className="goals-list">
-                  {viewFormData.goals
-                    .split("\n")
-                    .filter(goal => goal.trim() !== "")
-                    .map((goal, idx) => (
+              viewFormData.goals.split("\n").filter(goal => goal.trim() !== "").length > 0 && (
+                <div>
+                  <strong>Goals:</strong>
+                  <ul className="goals-list">
+                    {viewFormData.goals.split("\n").filter(goal => goal.trim() !== "").map((goal, idx) => (
                       <li key={idx}>{goal}</li>
                     ))}
-                </ul>
-              </div>
-            )}
-
-
+                  </ul>
+                </div>
+              )}
             <hr className="modal-divider" />
             <div className="modal-buttons modal-buttons-view">
               <div className="left-buttons">
-                <button onClick={handleDeleteEvent} className="delete-button">Delete Session</button>
+                <button onClick={handleDeleteEvent} className="delete-button">
+                  Delete {viewFormData.isChecklist ? "Task" : "Session"}
+                </button>
               </div>
               <div className="right-buttons">
-                <button onClick={() => setViewModalVisible(false)} className="neutral-button">Cancel</button>
-                <button onClick={handleViewToEdit} className="primary-button">Edit</button>
+                <button onClick={() => setViewModalVisible(false)} className="neutral-button">
+                  Cancel
+                </button>
+                <button onClick={handleViewToEdit} className="primary-button">
+                  Edit
+                </button>
               </div>
             </div>
-
           </div>
         </div>
       )}
@@ -397,12 +411,11 @@ const Calendar = () => {
       {editModalVisible && (
         <div className="modal-overlay">
           <div className="modal-content">
-            {/* Top right close button */}
             <button className="close-button" onClick={() => setEditModalVisible(false)}>×</button>
-            <h3>Edit Study Session</h3>
+            <h3>Edit {editFormData.isChecklist ? "Task" : "Study Session"}</h3>
             <form onSubmit={handleEditFormSubmit}>
               <div>
-                <label>Session Title:</label>
+                <label>{editFormData.isChecklist ? "Task" : "Session"} Title:</label>
                 <input
                   type="text"
                   value={editFormData.title}
@@ -467,7 +480,7 @@ const Calendar = () => {
               <div className="modal-buttons modal-buttons-edit">
                 <div className="left-buttons">
                   <button type="button" onClick={handleDeleteEvent} className="delete-button">
-                    Delete Session
+                    Delete {editFormData.isChecklist ? "Task" : "Session"}
                   </button>
                 </div>
                 <div className="right-buttons">
