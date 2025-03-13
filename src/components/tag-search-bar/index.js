@@ -150,7 +150,7 @@ const articles = [
     {
      "title": "How To Study Effectively? 10 Best Study Techniques | USAHS",
      "author": "University of St. Augustine for Health Sciences",
-     "link": "https://www.usa.edu/blog/study-techniques/#:~:text=Day%201:%20Learn%20the%20material,one%20week:%20Revisit%20and%20review.\n",
+     "link": "https://www.usa.edu/blog/study-techniques/\n",
      "date": "01/14/2025",
      "tag": "Effective Learning"
     },
@@ -228,12 +228,12 @@ function SearchBox({ options, onChange }) {
           <ul>
             {filteredArticles.map((article, index) => (
               <li key={index}>
-                <h3>{article.title}</h3>
+                <a className="article-links" href={article.link} target="_blank" rel="noopener noreferrer">{article.title}</a>
                 <p>Author: {article.author}</p>
                 {/* <p>Country: {article.country}</p> */}
                 <p>Published on: {article.date}</p>
                 <p>Tag: {article.tag}</p>
-                <a href={article.link} target="_blank" rel="noopener noreferrer">More Info</a>
+                {/* <a href={article.link} target="_blank" rel="noopener noreferrer">{article.title}</a> */}
               </li>
             ))}
           </ul>
