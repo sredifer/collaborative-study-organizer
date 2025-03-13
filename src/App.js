@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom"; // Import routing components
 import Login from "./components/authentication/Login";
 import Signup from "./components/authentication/Signup";
 import Calendar from "./components/calendar/Calendar";
@@ -8,18 +8,19 @@ import resourcesData from "./components/Study-library-resources-data.json";
 import SearchBox from "./components/tag-search-bar";
 import optionArray from "./components/constants/options";
 import TodoList from "./components/todo-list/TodoList";
-import Timer from "./components/timer/Timer";
-import Settings from "./components/timer/Settings";
-import SettingsContext from "./components/timer/SettingsContext";
+import Timer from "./components/timer/Timer"; // Timer component
+import Settings from "./components/timer/Settings"; // Settings component
+import SettingsContext from "./components/timer/SettingsContext"; // Settings context
 import FriendCollaboration from "./components/friend-collab/FriendCollab";
 import FileUpload from "./components/file-upload/FileUpload";
-
+//import DateSearchBar from "./components/search-by-date/search-by-date";
 import './App.css';
 import DateSearchBar from "./components/search-by-date/search-by-date";
 
+
 function App() {
-  // const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+  const [isAuthenticated, setIsAuthenticated] = useState(true); 
+  //const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   const [showSettings, setShowSettings] = useState(false);
   const [workMinutes, setWorkMinutes] = useState(25);
   const [breakMinutes, setBreakMinutes] = useState(5);
@@ -123,7 +124,10 @@ function App() {
 
 
 
+
+
   return (
+
     <SettingsContext.Provider
       value={{
         workMinutes,
@@ -135,7 +139,7 @@ function App() {
       }}
     >
       <Router>
-        {!isAuthenticated ? (
+      {!isAuthenticated ? (
           <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
@@ -165,9 +169,6 @@ function App() {
               <li>
                 <Link to="/search">Search</Link> {/* Link to the search page */}
               </li>
-              <li>
-                <button onClick={handleLogout}>Logout</button>
-                </li>
             </ul>
           </nav>
           </center>
@@ -222,8 +223,6 @@ function App() {
                   <SearchBar placeholder="Search for a study resource" data={resourcesData} />
                   <br />
                   <SearchBox options={options} onChange={newOptions => setOptions(newOptions)}/>
-                  <br />
-                  <DateSearchBar/>
                 </>
               }
             />
