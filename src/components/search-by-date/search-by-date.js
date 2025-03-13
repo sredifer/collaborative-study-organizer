@@ -163,7 +163,7 @@ function DateSearchBar() {
 
     return (
         <div className="date-search-box">
-            <h1>Date Picker</h1>
+            <h1>Search By Date</h1>
             
             <DatePicker
                 selected={selectedDate}
@@ -177,12 +177,12 @@ function DateSearchBar() {
                     {filteredArticles.length > 0 ? (
                         filteredArticles.map((article, index) => (
                             <li key={index}>
-                                <h3>{article.title}</h3>
+                                <a href={article.link} target="_blank" rel="noopener noreferrer">{article.title}</a>
                                 <p>Author: {article.author}</p>
                                 {/* <p>Country: {article.country}</p> */}
                                 <p>Published on: {article.date}</p>
                                 <p>Title: {article.title}</p>
-                                <a href={article.link} target="_blank" rel="noopener noreferrer">More Info</a>
+                                {/* <a href={article.link} target="_blank" rel="noopener noreferrer">{article.title}</a> */}
                             </li>
                         ))
                     ) : (

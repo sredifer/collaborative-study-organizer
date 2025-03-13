@@ -15,6 +15,7 @@ import FriendCollaboration from "./components/friend-collab/FriendCollab";
 import FileUpload from "./components/file-upload/FileUpload";
 
 import './App.css';
+import DateSearchBar from "./components/search-by-date/search-by-date";
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -221,6 +222,8 @@ function App() {
                   <SearchBar placeholder="Search for a study resource" data={resourcesData} />
                   <br />
                   <SearchBox options={options} onChange={newOptions => setOptions(newOptions)}/>
+                  <br />
+                  <DateSearchBar/>
                 </>
               }
             />
