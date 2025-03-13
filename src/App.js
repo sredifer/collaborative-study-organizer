@@ -13,7 +13,7 @@ import Settings from "./components/timer/Settings"; // Settings component
 import SettingsContext from "./components/timer/SettingsContext"; // Settings context
 import FriendCollaboration from "./components/friend-collab/FriendCollab";
 import FileUpload from "./components/file-upload/FileUpload";
-//import DateSearchBar from "./components/search-by-date/search-by-date";
+import DateSearchBar from "./components/search-by-date/search-by-date";
 import './App.css';
 
 
@@ -52,14 +52,14 @@ function App() {
       }}
     >
       <Router>
-      {!isAuthenticated ? (
+      {/* {!isAuthenticated ? (
           <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
           <Route path="/signup" element={<Signup onSignupSuccess={() => {}} />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
-        ) : (
+        ) : ( */}
         <div>
           <center>
           <nav>
@@ -122,7 +122,7 @@ function App() {
 
             {/* Route for search */}
             <Route
-            
+              
               path = "search"
               element = {
                 <>
@@ -136,6 +136,9 @@ function App() {
                   <SearchBar placeholder="Search for a study resource" data={resourcesData} />
                   <br />
                   <SearchBox options={options} onChange={newOptions => setOptions(newOptions)}/>
+                  <br />
+                  <DateSearchBar/>
+                  <br />
                 </>
               }
             />
@@ -177,7 +180,6 @@ function App() {
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
-        )}
       </Router>
     </SettingsContext.Provider>
   );
