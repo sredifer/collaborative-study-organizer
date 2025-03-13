@@ -13,4 +13,5 @@ logs/
 .DS_Store
 Thumbs.db
 
-/uploads/
+uploads/*
+!uploads/.gitkeep
