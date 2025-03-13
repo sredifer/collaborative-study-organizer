@@ -48,7 +48,11 @@ in your terminal, which will help with authentication. You can then run
 ```bash
 node index.js.
 ```
-to start up the backend for authentication. To set up the backend for file uploading, run
+to start up the backend for authentication. To set up the backend for file uploading, do
+```bash
+cd src/components/file-upload
+```
+and then run
 ```bash
 node server.js
 ```
