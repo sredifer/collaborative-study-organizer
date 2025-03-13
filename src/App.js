@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom"; // Import routing components
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
 import Login from "./components/authentication/Login";
 import Signup from "./components/authentication/Signup";
 import Calendar from "./components/calendar/Calendar";
@@ -8,23 +8,76 @@ import resourcesData from "./components/Study-library-resources-data.json";
 import SearchBox from "./components/tag-search-bar";
 import optionArray from "./components/constants/options";
 import TodoList from "./components/todo-list/TodoList";
-import Timer from "./components/timer/Timer"; // Timer component
-import Settings from "./components/timer/Settings"; // Settings component
-import SettingsContext from "./components/timer/SettingsContext"; // Settings context
+import Timer from "./components/timer/Timer";
+import Settings from "./components/timer/Settings";
+import SettingsContext from "./components/timer/SettingsContext";
 import FriendCollaboration from "./components/friend-collab/FriendCollab";
 import FileUpload from "./components/file-upload/FileUpload";
-//import DateSearchBar from "./components/search-by-date/search-by-date";
+
 import './App.css';
 
-
 function App() {
+  //const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   const [showSettings, setShowSettings] = useState(false);
   const [workMinutes, setWorkMinutes] = useState(25);
   const [breakMinutes, setBreakMinutes] = useState(5);
   const [totalPomodoros, setTotalPomodoros] = useState(4);
+  const [options, setOptions] = useState(optionArray);
 
-  const [options, setOptions] = React.useState(optionArray);
+  // Global tasks state for checklist items persisted in localStorage
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem("todoTasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
+
+  // Save tasks to localStorage whenever tasks change
+  useEffect(() => {
+    localStorage.setItem("todoTasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  // Callbacks to manage tasks
+  const addTask = (newTask) => {
+    setTasks(prev => [...prev, newTask]);
+  };
+
+  const updateTask = (updatedTask) => {
+    setTasks(prev => prev.map(task => task.id === updatedTask.id ? updatedTask : task));
+  };
+
+  const deleteTask = (taskId) => {
+    setTasks(prev => prev.filter(task => task.id !== taskId));
+  };
+
+  const toggleTaskCompletion = (taskId) => {
+    setTasks(prev => prev.map(task => task.id === taskId ? { ...task, completed: !task.completed } : task));
+  };
+
+  // Derive calendar events from tasks with a due date
+  const taskEvents = tasks
+  .filter(task => task.dueDate)
+  .map(task => {
+    const eventTitle = `Due: ${task.taskName}`;
+    const start = task.dueTime
+      ? `${task.dueDate}T${task.dueTime}:00`
+      : task.dueDate;
+    return {
+      id: task.id.toString(),
+      title: eventTitle,
+      start,
+      allDay: !task.dueTime,
+      extendedProps: {
+        isChecklist: true,
+        completed: task.completed, // pass whether the task is completed
+        startTime: task.dueTime || "",
+        endTime: task.endTime || "",
+        color: task.color || "#3788d8",
+        goals: task.goals ? task.goals.split("\n") : []
+      }
+    };
+  });
+
+
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);  // Set authentication state to true after successful login
@@ -58,7 +111,6 @@ function App() {
 
 
   return (
-
     <SettingsContext.Provider
       value={{
         workMinutes,
@@ -70,7 +122,7 @@ function App() {
       }}
     >
       <Router>
-      {!isAuthenticated ? (
+        {!isAuthenticated ? (
           <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />

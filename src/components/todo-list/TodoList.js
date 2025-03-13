@@ -9,9 +9,15 @@ const taskTypes = [
 ];
 const priorities = ["High", "Medium", "Low"];
 
-const TodoList = () => {
-  // Array of task objects
-  const [tasks, setTasks] = useState([]);
+const TodoList = ({ 
+  tasks = [], 
+  addTask = () => {}, 
+  updateTask = () => {}, 
+  deleteTask = () => {}, 
+  toggleTaskCompletion = () => {} 
+}) => {
+  // Instead of using local tasks state, we use the tasks passed from the parent.
+  
   // Option to hide completed tasks
   const [hideCompleted, setHideCompleted] = useState(false);
   // Modal control: open/closed, mode (create, view, edit)
@@ -71,7 +77,7 @@ const TodoList = () => {
 
   const handleDeleteTask = () => {
     if (window.confirm("Are you sure you want to delete this task?")) {
-      setTasks(prev => prev.filter(task => task.id !== selectedTask.id));
+      deleteTask(selectedTask.id);
       closeModal();
     }
   };
@@ -102,7 +108,7 @@ const TodoList = () => {
         completed: false,
         createdAt: new Date().toISOString()
       };
-      setTasks(prev => [...prev, newTask]);
+      addTask(newTask);
       closeModal();
     } else if (modalMode === "edit" && selectedTask) {
       const updatedTask = {
@@ -114,15 +120,14 @@ const TodoList = () => {
         dueTime: formData.dueTime,
         priority: formData.priority
       };
-      setTasks(prev => prev.map(task => task.id === selectedTask.id ? updatedTask : task));
+      updateTask(updatedTask);
       closeModal();
     }
   };
-  
 
-  // Toggle a task’s completion state
-  const toggleTaskCompletion = (id) => {
-    setTasks(prev => prev.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
+  // Toggle a task’s completion state using the passed-in callback
+  const handleToggleCompletion = (id) => {
+    toggleTaskCompletion(id);
   };
 
   // Toggle hiding completed tasks
@@ -139,11 +144,9 @@ const TodoList = () => {
   // - For same due date, higher priority (High > Medium > Low) comes first.
   // - Otherwise, fall back to creation time.
   const sortedTasks = tasks.slice().sort((a, b) => {
-    // Move completed tasks to bottom
     if (a.completed !== b.completed) {
       return a.completed ? 1 : -1;
     }
-    // Compare due dates if both have one
     if (a.dueDate && b.dueDate) {
       const dateA = new Date(a.dueDate + (a.dueTime ? " " + a.dueTime : ""));
       const dateB = new Date(b.dueDate + (b.dueTime ? " " + b.dueTime : ""));
@@ -154,7 +157,6 @@ const TodoList = () => {
     } else if (!a.dueDate && b.dueDate) {
       return 1;
     }
-    // Compare priorities (High > Medium > Low)
     const priorityValue = (p) => {
       if (p === "High") return 3;
       if (p === "Medium") return 2;
@@ -166,7 +168,6 @@ const TodoList = () => {
     if (pa !== pb) {
       return pb - pa;
     }
-    // Fall back to creation time
     return new Date(a.createdAt) - new Date(b.createdAt);
   });
 
@@ -200,103 +201,79 @@ const TodoList = () => {
           <TodoItem 
             key={task.id} 
             task={task} 
-            onToggleComplete={toggleTaskCompletion} 
+            onToggleComplete={handleToggleCompletion} 
             onViewTask={openViewModal} 
           />
         ))}
       </div>
 
-    {/* Modal for creating, viewing, and editing tasks */}
-    {modalOpen && (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <button className="close-button" onClick={closeModal}>×</button>
-          {(modalMode === "create" || modalMode === "edit") && (
-            <div className="modal-form">
-              <h3>{modalMode === "create" ? "Add New Task" : "Edit Task"}</h3>
-              <form autoComplete="off" onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
-                <label>
-                  Task Name:
-                  <input 
-                    type="text" 
-                    name="taskName" 
-                    value={formData.taskName} 
-                    onChange={handleInputChange} 
-                    required
-                  />
-                </label>
-                <label>
-                  Class:
-                  <input 
-                    type="text" 
-                    name="className" 
-                    value={formData.className} 
-                    onChange={handleInputChange} 
-                  />
-                </label>
-                <label>
-                  Task Type:
-                  <select name="taskType" value={formData.taskType} onChange={handleInputChange}>
-                    <option value="">Select Type</option>
-                    {taskTypes.map(type => (
-                      <option key={type} value={type}>{type}</option>
-                    ))}
-                  </select>
-                </label>
-                <label>
-                  Due Date:
-                  <input 
-                    type="date" 
-                    name="dueDate" 
-                    value={formData.dueDate} 
-                    onChange={handleInputChange} 
-                  />
-                </label>
-                <label>
-                  Due Time (optional):
-                  <input 
-                    type="time" 
-                    name="dueTime" 
-                    value={formData.dueTime} 
-                    onChange={handleInputChange} 
-                  />
-                </label>
-                <label>
-                  Priority:
-                  <select name="priority" value={formData.priority} onChange={handleInputChange}>
-                    <option value="">Select Priority</option>
-                    {priorities.map(p => (
-                      <option key={p} value={p}>{p}</option>
-                    ))}
-                  </select>
-                </label>
-                <hr className="modal-divider" />
-                {modalMode === "create" && (
-                  <div className="modal-buttons">
-                    <button 
-                      type="button" 
-                      onClick={closeModal} 
-                      className="neutral-button"
-                    >
-                      Cancel
-                    </button>
-                    <button type="submit" className="primary-button">
-                      Save Task
-                    </button>
-                  </div>
-                )}
-                {modalMode === "edit" && (
-                  <div className="modal-buttons modal-buttons-edit">
-                    <div className="left-buttons">
-                      <button 
-                        type="button" 
-                        onClick={handleDeleteTask} 
-                        className="delete-button"
-                      >
-                        Delete Task
-                      </button>
-                    </div>
-                    <div className="right-buttons">
+      {/* Modal for creating, viewing, and editing tasks */}
+      {modalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button className="close-button" onClick={closeModal}>×</button>
+            {(modalMode === "create" || modalMode === "edit") && (
+              <div className="modal-form">
+                <h3>{modalMode === "create" ? "Add New Task" : "Edit Task"}</h3>
+                <form autoComplete="off" onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
+                  <label>
+                    Task Name:
+                    <input 
+                      type="text" 
+                      name="taskName" 
+                      value={formData.taskName} 
+                      onChange={handleInputChange} 
+                      required
+                    />
+                  </label>
+                  <label>
+                    Class:
+                    <input 
+                      type="text" 
+                      name="className" 
+                      value={formData.className} 
+                      onChange={handleInputChange} 
+                    />
+                  </label>
+                  <label>
+                    Task Type:
+                    <select name="taskType" value={formData.taskType} onChange={handleInputChange}>
+                      <option value="">Select Type</option>
+                      {taskTypes.map(type => (
+                        <option key={type} value={type}>{type}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Due Date:
+                    <input 
+                      type="date" 
+                      name="dueDate" 
+                      value={formData.dueDate} 
+                      onChange={handleInputChange} 
+                    />
+                  </label>
+                  <label>
+                    Due Time (optional):
+                    <input 
+                      type="time" 
+                      name="dueTime" 
+                      value={formData.dueTime} 
+                      onChange={handleInputChange} 
+                    />
+                  </label>
+                  <label>
+                    Priority:
+                    <select name="priority" value={formData.priority} onChange={handleInputChange}>
+                      <option value="">Select Priority</option>
+                      {priorities.map(p => (
+                        <option key={p} value={p}>{p}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <hr className="modal-divider" />
+                  {modalMode === "create" && (
+                    <div className="modal-buttons">
                       <button 
                         type="button" 
                         onClick={closeModal} 
@@ -305,91 +282,113 @@ const TodoList = () => {
                         Cancel
                       </button>
                       <button type="submit" className="primary-button">
-                        Update Task
+                        Save Task
                       </button>
                     </div>
+                  )}
+                  {modalMode === "edit" && (
+                    <div className="modal-buttons modal-buttons-edit">
+                      <div className="left-buttons">
+                        <button 
+                          type="button" 
+                          onClick={handleDeleteTask} 
+                          className="delete-button"
+                        >
+                          Delete Task
+                        </button>
+                      </div>
+                      <div className="right-buttons">
+                        <button 
+                          type="button" 
+                          onClick={closeModal} 
+                          className="neutral-button"
+                        >
+                          Cancel
+                        </button>
+                        <button type="submit" className="primary-button">
+                          Update Task
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </form>
+              </div>
+            )}
+            {modalMode === "view" && selectedTask && (
+              <div className="modal-view">
+                <h3>Task Details</h3>
+                <div>
+                  <strong>Name:</strong> {selectedTask.taskName}
+                </div>
+                {selectedTask.className && (
+                  <div>
+                    <strong>Class:</strong> {selectedTask.className}
                   </div>
                 )}
-              </form>
-            </div>
-          )}
-          {modalMode === "view" && selectedTask && (
-            <div className="modal-view">
-              <h3>Task Details</h3>
-              <div>
-                <strong>Name:</strong> {selectedTask.taskName}
-              </div>
-              {selectedTask.className && (
-                <div>
-                  <strong>Class:</strong> {selectedTask.className}
-                </div>
-              )}
-              {selectedTask.taskType && (
-                <div>
-                  <strong>Type:</strong> {selectedTask.taskType}
-                </div>
-              )}
-              {selectedTask.dueDate && (
-                <div>
-                  <strong>Due Date:</strong>{" "}
-                  {new Date(selectedTask.dueDate + "T00:00:00").toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric'
-                  })}
-                </div>
-              )}
-              {selectedTask.dueTime && (
-                <div>
-                  <strong>Due Time:</strong>{" "}
-                  {new Date(`1970-01-01T${selectedTask.dueTime}:00`).toLocaleTimeString('en-US', {
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true
-                  })}
-                </div>
-              )}
-              {selectedTask.priority && (
-                <div>
-                  <strong>Priority:</strong> {selectedTask.priority}
-                </div>
-              )}
-              <hr className="modal-divider" />
-              <div className="modal-buttons modal-buttons-view">
-                <div className="left-buttons">
-                  <button 
-                    type="button" 
-                    onClick={handleDeleteTask} 
-                    className="delete-button"
-                  >
-                    Delete Task
-                  </button>
-                </div>
-                <div className="right-buttons">
-                  <button 
-                    type="button" 
-                    onClick={closeModal} 
-                    className="neutral-button"
-                  >
-                    Cancel
-                  </button>
-                  <button 
-                    type="button" 
-                    onClick={openEditModal} 
-                    className="primary-button"
-                  >
-                    Edit Task
-                  </button>
+                {selectedTask.taskType && (
+                  <div>
+                    <strong>Type:</strong> {selectedTask.taskType}
+                  </div>
+                )}
+                {selectedTask.dueDate && (
+                  <div>
+                    <strong>Due Date:</strong>{" "}
+                    {new Date(selectedTask.dueDate + "T00:00:00").toLocaleDateString('en-US', {
+                      weekday: 'long',
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
+                  </div>
+                )}
+                {selectedTask.dueTime && (
+                  <div>
+                    <strong>Due Time:</strong>{" "}
+                    {new Date(`1970-01-01T${selectedTask.dueTime}:00`).toLocaleTimeString('en-US', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: true
+                    })}
+                  </div>
+                )}
+                {selectedTask.priority && (
+                  <div>
+                    <strong>Priority:</strong> {selectedTask.priority}
+                  </div>
+                )}
+                <hr className="modal-divider" />
+                <div className="modal-buttons modal-buttons-view">
+                  <div className="left-buttons">
+                    <button 
+                      type="button" 
+                      onClick={handleDeleteTask} 
+                      className="delete-button"
+                    >
+                      Delete Task
+                    </button>
+                  </div>
+                  <div className="right-buttons">
+                    <button 
+                      type="button" 
+                      onClick={closeModal} 
+                      className="neutral-button"
+                    >
+                      Cancel
+                    </button>
+                    <button 
+                      type="button" 
+                      onClick={openEditModal} 
+                      className="primary-button"
+                    >
+                      Edit Task
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-    )}
-
-
+      )}
 
     </div>
   );
