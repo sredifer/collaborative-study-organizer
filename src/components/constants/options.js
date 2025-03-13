@@ -2,8 +2,7 @@ const options = [
     "Study Resource",
     "Productivity",
     "Time Management",
-    "Effective Learning",
-    "Short"
+    "Effective Learning"
   ];
 
 export default options.map(option => ({ name: option, selected: false}));
