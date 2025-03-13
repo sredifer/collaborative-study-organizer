@@ -177,7 +177,7 @@ const TodoList = () => {
     <div className="todo-list-container">
       <div className="todo-list-header">
         <div className="header-row">
-          <h2>Todo List</h2>
+          <h2>My To-Do List</h2>
           <button className="add-button" onClick={openCreateModal}>+</button>
         </div>
         {hasCompletedTasks && (

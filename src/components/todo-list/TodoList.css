@@ -4,9 +4,10 @@
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 7px double #c54b55;
     border-radius: 6px;
     box-sizing: border-box;
+    background-color: white;
   }
   
   /* Header container with two rows */

@@ -128,6 +128,11 @@ function App() {
                 <>
                 {/*<DateSearchBar/>
                   <br />*/}
+                  <center>
+                  <div class="logo">
+                    <img src="/images/search-page-logo.png" width="600" height="112"></img>
+                  </div>
+                  </center>
                   <SearchBar placeholder="Search for a study resource" data={resourcesData} />
                   <br />
                   <SearchBox options={options} onChange={newOptions => setOptions(newOptions)}/>
