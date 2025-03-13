@@ -13,14 +13,13 @@ import Settings from "./components/timer/Settings"; // Settings component
 import SettingsContext from "./components/timer/SettingsContext"; // Settings context
 import FriendCollaboration from "./components/friend-collab/FriendCollab";
 import FileUpload from "./components/file-upload/FileUpload";
-//import DateSearchBar from "./components/search-by-date/search-by-date";
 import './App.css';
 import DateSearchBar from "./components/search-by-date/search-by-date";
 
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); 
-  //const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+  //const [isAuthenticated, setIsAuthenticated] = useState(true); 
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   const [showSettings, setShowSettings] = useState(false);
   const [workMinutes, setWorkMinutes] = useState(25);
   const [breakMinutes, setBreakMinutes] = useState(5);
@@ -169,6 +168,9 @@ function App() {
               <li>
                 <Link to="/search">Search</Link> {/* Link to the search page */}
               </li>
+              <li>
+                 <button onClick={handleLogout}>Logout</button>
+              </li>
             </ul>
           </nav>
           </center>
@@ -223,6 +225,9 @@ function App() {
                   <SearchBar placeholder="Search for a study resource" data={resourcesData} />
                   <br />
                   <SearchBox options={options} onChange={newOptions => setOptions(newOptions)}/>
+                  <br />
+                  <DateSearchBar/>
+
                 </>
               }
             />
