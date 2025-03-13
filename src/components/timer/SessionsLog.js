@@ -47,7 +47,7 @@ export default function SessionsLog({ setShowSessionsLog }) {
                 <h3>Sessions Log</h3>
                 <div>
                     {sessions.length > 0 ? (
-                        <ul>
+                        <ul style={{ listStyleType: "none", padding: 0, margin: "0 auto", display: "inline-block", textAlign: "center" }}>
                             {sessions.map((session) => (
                                 <li key={session._id}>
                                     Pomodoros Completed: {session.pomodorosCompleted}

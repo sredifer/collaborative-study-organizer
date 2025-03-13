@@ -25,11 +25,11 @@ Clone the repo like so:
 git clone https://github.com/sredifer/collaborative-study-organizer.git
 cd collaborative-study-organizer
 ```
-Then do
+Then do the following to install the necessary dependencies:
 ```bash
 npm install
 ```
-to install the necessary dependencies. After cloning the repository, do
+ After doing the above, cd into the following folder by doing:
 ```bash
 cd src/server
 ```
@@ -40,30 +40,24 @@ JWT_SECRET=your_jwt_secret
 PORT=3000
 ``` 
 You will need access to a Mongo Database, which you can do locally or through MongoDB Atlas. 
-To get a JWT_SECRET code, run the command
+To get a JWT_SECRET code, run the following command in your terminal, which will help with authentication:
 ```bash 
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
-in your terminal, which will help with authentication. You can then run 
+You can then run the following command to start up the backend for authentication:
 ```bash
 node index.js.
 ```
-to start up the backend for authentication. To set up the backend for file uploading, do
+To set up the backend for file uploading, do the following commands:
 ```bash
 cd src/components/file-upload
-```
-and then run
-```bash
 node server.js
 ```
-Finally, run
+Finally, run the folloiwng commands to view the frontend of the program:
 ```bash
 npm start
 ```
-to view the frontend of the program.
 
 ## **Authors**
-**The Collaborative Study Organizer** was made as a project for CS 35L taught by Professor Paul Eggert at UCLA in Winter 2025.
-</br>
-Made by Samantha Redifer, Lily Brawner, Julia Endriga, Lyra Latifi, and Samantha Zepeda  
+The **Collaborative Study Organizer** was created as a project for CS 35L taught by Professor Paul Eggert at UCLA in Winter 2025. It was made by Samantha Redifer, Lily Brawner, Julia Endriga, Lyra Latifi, and Samantha Zepeda.  
 
