@@ -56,25 +56,37 @@ function App() {
   const taskEvents = tasks
   .filter(task => task.dueDate)
   .map(task => {
-    const eventTitle = `Due: ${task.taskName}`;
-    const start = task.dueTime
+    const eventTitle = task.completed
+      ? `✔ Due: ${task.taskName}`
+      : `Due: ${task.taskName}`;
+    let start = task.dueTime
       ? `${task.dueDate}T${task.dueTime}:00`
       : task.dueDate;
+
+    let end = start; // Ensure end time is within the same day
+
+    // Adjust end time if it is too late at night
+    if (task.dueTime && parseInt(task.dueTime.split(':')[0]) >= 23) {
+      end = `${task.dueDate}T23:59:00`; // Keep the event within the same date
+    }
+
     return {
       id: task.id.toString(),
       title: eventTitle,
       start,
+      end,
       allDay: !task.dueTime,
       extendedProps: {
         isChecklist: true,
-        completed: task.completed, // pass whether the task is completed
         startTime: task.dueTime || "",
         endTime: task.endTime || "",
         color: task.color || "#3788d8",
-        goals: task.goals ? task.goals.split("\n") : []
+        goals: task.goals ? task.goals.split("\n") : [],
+        completed: task.completed
       }
     };
   });
+
 
 
 
