@@ -92,14 +92,35 @@ function App() {
 
 
   const handleLoginSuccess = () => {
-    setIsAuthenticated(true);
+    setIsAuthenticated(true);  // Set authentication state to true after successful login
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token from local storage
+    setIsAuthenticated(false); // Update authentication state
+  };
+
+  // Use useEffect to manage redirection after login
   useEffect(() => {
-    if (isAuthenticated) {
-      // Optionally perform any redirect logic after login.
-    }
-  }, [isAuthenticated]);
+    const checkTokenExpiration = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const payload = JSON.parse(atob(token.split(".")[1])); 
+          const expirationTime = payload.exp * 1000;
+          if (Date.now() >= expirationTime) {
+            handleLogout();
+          }
+        } catch (error) {
+          console.error("Invalid token format", error);
+          handleLogout();
+        }
+      }
+    };
+    checkTokenExpiration();
+  }, []);
+
+
 
   return (
     <SettingsContext.Provider
@@ -115,123 +136,132 @@ function App() {
       <Router>
         {!isAuthenticated ? (
           <Routes>
-            <Route path="/" element={<Navigate to="/login" />} />
-            <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
-            <Route path="/signup" element={<Signup onSignupSuccess={() => {}} />} />
-            <Route path="*" element={<Navigate to="/login" />} />
-          </Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/signup" element={<Signup onSignupSuccess={() => {}} />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
         ) : (
-          <div>
-            <center>
-              <nav>
-                <ul>
-                  <li>
-                    <Link to="/">Home</Link> {/* Timer/Home page */}
-                  </li>
-                  <li>
-                    <Link to="/calendar">Calendar</Link> {/* Calendar page */}
-                  </li>
-                  <li>
-                    <Link to="/todo-list">To-Do</Link> {/* To-Do page */}
-                  </li>
-                  <li>
-                    <Link to="/friend-collaboration">Friends!</Link>
-                  </li>
-                  <li>
-                    <Link to="/file-upload">Upload Notes</Link>
-                  </li>
-                  <li>
-                    <Link to="/search">Search</Link>
-                  </li>
-                </ul>
-              </nav>
-            </center>
+        <div>
+          <center>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link> {/* Link to the home page (Timer) */}
+              </li>
+              <li>
+                <Link to="/calendar">Calendar</Link> {/* Link to the calendar page */}
+              </li>
+              <li>
+                <Link to="/todo-list">To-Do</Link> {/* Link to the calendar page */}
+              </li>
+              <li>
+                <Link to="/friend-collaboration">Friends!</Link> {/* Link to the friend collaboration page */}
+              </li>
+              <li>
+                <Link to="/file-upload">Upload Notes</Link> {/* Link to the file upload page */}
+              </li>
+              <li>
+                <Link to="/search">Search</Link> {/* Link to the search page */}
+              </li>
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+                </li>
+            </ul>
+          </nav>
+          </center>
 
-            <Routes>
-              <Route
-                path="/calendar"
-                element={
-                  <>
-                    <center>
-                      <div className="logo">
-                        <img src="/images/calendar-page-logo.png" width="600" height="108" alt="Calendar Logo" />
-                      </div>
-                    </center>
-                    {/* Pass the derived events and callbacks to Calendar */}
-                    <Calendar events={taskEvents} updateTask={updateTask} deleteTask={deleteTask} />
-                    <br />
-                  </>
-                }
-              />
 
-              <Route
-                path="/todo-list"
-                element={
-                  <>
-                    <center>
-                      <div className="logo">
-                        <img src="/images/todo-page-logo.png" width="600" height="112" alt="Todo Logo" />
-                      </div>
-                    </center>
-                    {/* Pass tasks and callbacks to TodoList */}
-                    <TodoList 
-                      tasks={tasks} 
-                      addTask={addTask} 
-                      updateTask={updateTask} 
-                      deleteTask={deleteTask} 
-                      toggleTaskCompletion={toggleTaskCompletion} 
-                    />
-                  </>
-                }
-              />
+          <Routes>
+            {/* Route for the calendar + search Bar page) */}
+            <Route
+              path="/calendar"
+              element={
+                <>
+                  <center>
+                  <div class="logo">
+                    <img src="/images/calendar-page-logo.png" width="600" height="108"></img>
+                  </div>
+                  </center>
+                  <Calendar />
+                  <br />
+                </>
+              }
+            />
 
-              <Route
-                path="/search"
-                element={
-                  <>
-                    <SearchBar placeholder="Search for a study resource" data={resourcesData} />
-                    <br />
-                    <SearchBox options={options} onChange={newOptions => setOptions(newOptions)} />
-                  </>
-                }
-              />
+            {/* Route for todolist */}
+            <Route
+            
+              path = "todo-list"
+              element = {
+                <>
+                <center>
+                  <div class="logo">
+                    <img src="/images/todo-page-logo.png" width="600" height="112"></img>
+                  </div>
+                </center>
+                <TodoList />
+                </>
+              }
+            />
 
-              <Route
-                path="/"
-                element={
-                  <>
-                    <center>
-                      <div className="logo">
-                        <img src="/images/timer-page-logo.png" width="545" height="185" alt="Timer Logo" />
-                      </div>
-                    </center>
-                    {showSettings ? (
-                      <Settings setShowSettings={setShowSettings} />
-                    ) : (
-                      <Timer setShowSettings={setShowSettings} showSettings={showSettings} />
-                    )}
-                  </>
-                }
-              />
-
-              <Route
-                path="/friend-collaboration"
-                element={
-                  <>
-                    <center>
-                      <div className="logo">
-                        <img src="/images/friends-page-logo.png" width="513" height="189" alt="Friends Logo" />
-                      </div>
-                    </center>
-                    <FriendCollaboration />
-                  </>
-                }
-              />
-
-              <Route path="/file-upload" element={<FileUpload />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </div>
+            {/* Route for search */}
+            <Route
+            
+              path = "search"
+              element = {
+                <>
+                {/*<DateSearchBar/>
+                  <br />*/}
+                  <center>
+                  <div class="logo">
+                    <img src="/images/search-page-logo.png" width="600" height="112"></img>
+                  </div>
+                  </center>
+                  <SearchBar placeholder="Search for a study resource" data={resourcesData} />
+                  <br />
+                  <SearchBox options={options} onChange={newOptions => setOptions(newOptions)}/>
+                </>
+              }
+            />
+           
+            {/* Route for the timer/home page */}
+            <Route
+              path="/"
+              element={
+                <>
+                  <center>
+                  <div class="logo">
+                    <img src="/images/timer-page-logo.png" width="545" height="185"></img>
+                  </div>
+                  </center>
+                  {showSettings ? (
+                    <Settings setShowSettings={setShowSettings} />
+                  ) : (
+                    <Timer setShowSettings={setShowSettings} showSettings={showSettings} />
+                  )}
+                </>
+              }
+            />
+            {/* Route for the Friend Collaboration page */}
+            <Route
+              path="/friend-collaboration"
+              element={
+              <>  
+                <center>
+                <div class="logo">
+                  <img src="/images/friends-page-logo.png" width="513" height="189"></img>
+                </div>
+                </center>
+              <FriendCollaboration /> {/* Add the FriendCollaboration component */}
+              </>
+              } 
+            />
+            {/* New Route for File Upload Page */}
+            <Route path="/file-upload" element={<FileUpload />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </div>
         )}
       </Router>
     </SettingsContext.Provider>
