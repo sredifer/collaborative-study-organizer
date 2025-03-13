@@ -154,7 +154,8 @@ const Calendar = ({ events: checklistEvents = [], updateTask, deleteTask }) => {
       endTime: event.extendedProps.endTime || "",
       color: event.extendedProps.color || "#3788d8",
       goals: goals,
-      isChecklist: event.extendedProps.isChecklist || false
+      isChecklist: event.extendedProps.isChecklist || false,
+      completed: event.extendedProps.completed || false 
     });
 
     setViewModalVisible(true);
@@ -184,12 +185,13 @@ const Calendar = ({ events: checklistEvents = [], updateTask, deleteTask }) => {
       // Convert the id back to a number
       const updatedTask = {
         id: Number(editFormData.id),
-        taskName: editFormData.title.replace(/^Due:\s*/, ""),
+        taskName: editFormData.title.replace(/^(Due:\s*|✔\s*Due:\s*)/i, ""),
         dueDate: editFormData.date,
         dueTime: editFormData.startTime,
         endTime: editFormData.endTime,  
         color: editFormData.color,     
-        goals: editFormData.goals   
+        goals: editFormData.goals,
+        completed: editFormData.completed   
       };
       updateTask(updatedTask);
     } else {
