@@ -65,9 +65,9 @@ export default function Timer({ setShowSettings }) {
     const logSession = async () => {
         // Log the session data to the backend when the last Pomodoro is completed
         const sessionData = {
-            completedPomodoros: totalPomodoros,
-            workTime: workMinutes,
-            breakTime: breakMinutes,
+            pomodorosCompleted: totalPomodoros,
+            workTimeLength: workMinutes,
+            breakTimeLength: breakMinutes,
             timestamp: new Date().toISOString(),
         };
 
@@ -76,7 +76,7 @@ export default function Timer({ setShowSettings }) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-auth-token": localStorage.getItem("authToken"), // Assuming the token is stored in localStorage
+                    "x-auth-token": localStorage.getItem("token"), // Assuming the token is stored in localStorage
                 },
                 body: JSON.stringify(sessionData),
             });

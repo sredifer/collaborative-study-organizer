@@ -21,17 +21,18 @@ const authMiddleware = (req, res, next) => {
 // Log a new session
 router.post("/log", authMiddleware, async (req, res) => {
     try {
-        const { completedPomodoros, workTimeLength, breakTimeLength } = req.body;
+        const { pomodorosCompleted, workTimeLength, breakTimeLength, timestamp } = req.body;
         
-        if (!completedPomodoros || !workTimeLength || !breakTimeLength) {
+        if (!pomodorosCompleted || !workTimeLength || !breakTimeLength) {
             return res.status(400).json({ msg: "Missing required session data" });
         }
 
         const newSession = new Session({
             userId: req.user,  // Use the user ID from the middleware
-            completedPomodoros,
+            pomodorosCompleted,
             workTimeLength,
             breakTimeLength,
+            timestamp
         });
 
         await newSession.save();

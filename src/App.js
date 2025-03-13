@@ -30,12 +30,30 @@ function App() {
     setIsAuthenticated(true);  // Set authentication state to true after successful login
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token from local storage
+    setIsAuthenticated(false); // Update authentication state
+  };
+
   // Use useEffect to manage redirection after login
   useEffect(() => {
-    if (isAuthenticated) {
-      // After successful login, navigate to the home page if redirected to login
-    }
-  }, [isAuthenticated]);
+    const checkTokenExpiration = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const payload = JSON.parse(atob(token.split(".")[1])); 
+          const expirationTime = payload.exp * 1000;
+          if (Date.now() >= expirationTime) {
+            handleLogout();
+          }
+        } catch (error) {
+          console.error("Invalid token format", error);
+          handleLogout();
+        }
+      }
+    };
+    checkTokenExpiration();
+  }, []);
 
 
 
@@ -82,6 +100,9 @@ function App() {
               <li>
                 <Link to="/search">Search</Link> {/* Link to the search page */}
               </li>
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+                </li>
             </ul>
           </nav>
           </center>

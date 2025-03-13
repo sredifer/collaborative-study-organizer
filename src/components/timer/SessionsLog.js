@@ -9,7 +9,7 @@ export default function SessionsLog({ setShowSessionsLog }) {
                 const response = await fetch("http://localhost:3001/api/sessions/history", {  // Change this to match the backend route
                     method: "GET",
                     headers: {
-                        "x-auth-token": localStorage.getItem("authToken"), // Assuming you store the auth token in localStorage
+                        "x-auth-token": localStorage.getItem("token"), // Assuming you store the auth token in localStorage
                     },
                 });
 
@@ -50,7 +50,7 @@ export default function SessionsLog({ setShowSessionsLog }) {
                         <ul>
                             {sessions.map((session) => (
                                 <li key={session._id}>
-                                    Pomodoros Completed: {session.completedPomodoros}
+                                    Pomodoros Completed: {session.pomodorosCompleted}
                                     <br />
                                     Work Time Length: {session.workTimeLength} minutes
                                     <br />
