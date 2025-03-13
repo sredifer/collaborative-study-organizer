@@ -223,7 +223,7 @@ function SearchBox({ options, onChange }) {
 
       {/* Display filtered articles */}
       <div className="article-results">
-        <h2>Search Results</h2>
+        <h2>Search Results (scroll down to search by date!)</h2>
         {filteredArticles.length > 0 ? (
           <ul>
             {filteredArticles.map((article, index) => (

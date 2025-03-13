@@ -18,7 +18,7 @@
     /* box-shadow: var(--box-shadow); */
     /* border-radius: 5px; */
     font-size: 14px;
-    font-family:"Lucida Console", "Courier New", monospace;
+    font-family: OCR A Std, monospace;
     user-select: none;
     
     &.inverted {

@@ -1,5 +1,9 @@
 .input-container {
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centering horizontally */
+    justify-content: center; /* Centering vertically */
   
     input {
       /* border: none; */
@@ -11,7 +15,7 @@
       padding-left: 8px;
       padding-bottom: 10px;
       font-size: 16px;
-      font-family:"Lucida Console", "Courier New", monospace;
+      font-family: OCR A Std, monospace;
     }
   
     .options {
@@ -22,9 +26,13 @@
       overflow-y: scroll;
       overflow-x: none;
       border-style: solid;
-      font-family:"Lucida Console", "Courier New", monospace;
+      font-family:OCR A Std, monospace;
       padding-top: 0px;
       padding-left: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Centering horizontally */
+      justify-content: center; /* Centering vertically */
 
       /* animation: open .5s;
       @keyframes open {

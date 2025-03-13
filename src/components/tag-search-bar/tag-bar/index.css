@@ -2,16 +2,18 @@
     display: flex;
     border-radius: 5px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 5px;
-    font-family:"Lucida Console", "Courier New", monospace;
-    width: 90%;
+    font-family: OCR A Std, monospace;
+    /*width: 90%;*/
     background-color: grey;
     overflow-x: scroll;
     color: black;
     background-color: rgba(175, 18, 18, 0.18);
     margin-bottom: 5px;
     width: 425px;
+    /*margin-left: 100px;*/
+    margin: 0 auto;
 
     /* animation: expand .25s;
     @keyframes expand {

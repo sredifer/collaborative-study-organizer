@@ -9,9 +9,13 @@
   }
   
   .article-results {
-      font-size: 13px;
+      font-size: 15px;
+      font-family: OCR A Std, monospace; 
+      margin-left: 10px;
   }
   
   .article-links {
-      font-size: 20px;   
+      font-size: 20px;
+      font-family: OCR A Std, monospace;
+      /*color: #96333c;*/   
   }

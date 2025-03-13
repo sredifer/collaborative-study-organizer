@@ -10,7 +10,7 @@
     &:hover {
       /* background: #0001;  */
       background: red;
-      text-color: red;
+      color: red;
       cursor: pointer;
     }
   
@@ -47,5 +47,5 @@
   }
 
   .input-option:hover{
-    text-color: red;
+    color: red;
   }

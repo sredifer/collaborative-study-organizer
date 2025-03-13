@@ -2,9 +2,20 @@
 
 .date-search-box{
     position: absolute;
-    margin-left: 10px;
+    margin-left: 20px;
     margin-top: 0px;
     margin-bottom: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-search-box h1 {
+  font-family: OCR A Std, monospace;
+  font-size: 23px;
+}
+.date-search-box h2 {
+  font-family: OCR A Std, monospace;
+  font-size: 23px;
 }
 
 .react-datepicker__navigation-icon::before, .react-datepicker__year-read-view--down-arrow,
@@ -27,7 +38,7 @@
 }
 
 .react-datepicker {
-  font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+  font-family: OCR A Std, monospace;
   font-size: 0.8rem;
   background-color: #fff;
   /* background-color: red; */
