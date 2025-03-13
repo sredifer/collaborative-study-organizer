@@ -2,9 +2,9 @@
 
 .date-search-box{
     position: absolute;
-    margin-left: 10px;
-    margin-top: 0px;
+    margin-left: 50px;
     margin-bottom: 100px;
+    
 }
 
 .react-datepicker__navigation-icon::before, .react-datepicker__year-read-view--down-arrow,

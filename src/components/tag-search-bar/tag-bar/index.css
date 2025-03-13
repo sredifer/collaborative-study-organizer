@@ -1,6 +1,5 @@
 .tag-bar {
     display: flex;
-    border-radius: 5px;
     align-items: center;
     justify-content: space-between;
     padding: 5px;
@@ -9,9 +8,6 @@
     background-color: grey;
     overflow-x: scroll;
     color: black;
-    background-color: rgba(175, 18, 18, 0.18);
-    margin-bottom: 5px;
-    width: 425px;
 
     /* animation: expand .25s;
     @keyframes expand {
@@ -26,13 +22,13 @@
     .tags-container {
       display: flex;
       align-items: flex-end;
-      /* background-color: rgba(163, 163, 180, 0.23); */
+      background-color: rgba(163, 163, 180, 0.23);
       padding-top: 6px;
       padding-bottom: 6px;
       padding-left: 6px;
       border-radius: 0%;
       overflow-x: scroll;
-      width: 92%;
+      width: 40%;
     }
   
     /* .more-items {
