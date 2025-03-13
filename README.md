@@ -17,8 +17,7 @@ The **Collaborative Study Organizer** is a web-based platform designed to help s
 
 ## **Technology: Javascript, MERN Stack (MongoDB, Express.js, React.js, Node.js)**
 
-<img src="https://static.vecteezy.com/system/resources/previews/027/127/463/non_2x/javascript-logo-javascript-icon-transparent-free-png.png" width="200" height="200">
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/94/MERN-logo.png" width="486" height="187">
+<img src="https://static.vecteezy.com/system/resources/previews/027/127/463/non_2x/javascript-logo-javascript-icon-transparent-free-png.png" width="200" height="200"> <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/MERN-logo.png" width="486" height="187">
 
 ## **Instructions to Run the App**
 Clone the repo like so:
