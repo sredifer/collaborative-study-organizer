@@ -8,5 +8,30 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Monthly view (dayGrid) */
+.fc-daygrid-event {
+  border-color: #CF5175;
+}
+
+.fc-daygrid-event:hover {
+  border-color: #982042;
+}
+
+.fc-daygrid-event:hover .fc-event-main {
+  background-color: #de829b;
+}
+
+/* Weekly/Daily view (timeGrid) */
+.fc-timegrid-event {
+  border-color: #CF5175;
+}
+
+.fc-timegrid-event:hover {
+  border-color: #982042;
+}
+
+.fc-timegrid-event:hover .fc-event-main {
+  background-color: #de829b;
+}
 
 

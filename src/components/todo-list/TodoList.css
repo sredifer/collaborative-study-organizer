@@ -111,7 +111,7 @@
   }
   
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #CF5175;
   }
   
   input:checked + .slider:before {
@@ -121,5 +121,10 @@
   /* Ensure the slider remains rounded */
   .slider.round {
     border-radius: 34px;
+  }
+
+  /* Make checkbox pink */
+  .todo-item input[type="checkbox"] {
+    accent-color: #CF5175;
   }
   

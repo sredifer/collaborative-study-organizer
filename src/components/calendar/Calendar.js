@@ -46,7 +46,7 @@ const Calendar = ({ events: checklistEvents = [], updateTask, deleteTask }) => {
     date: "",
     startTime: "",
     endTime: "",
-    color: "#3788d8",
+    color: "#E28FA5",
     goals: ""
   });
 
@@ -58,7 +58,7 @@ const Calendar = ({ events: checklistEvents = [], updateTask, deleteTask }) => {
     date: "",
     startTime: "",
     endTime: "",
-    color: "#3788d8",
+    color: "#E28FA5",
     goals: "",
     isChecklist: false
   });
@@ -71,7 +71,7 @@ const Calendar = ({ events: checklistEvents = [], updateTask, deleteTask }) => {
     date: "",
     startTime: "",
     endTime: "",
-    color: "#3788d8",
+    color: "#E28FA5",
     goals: "",
     isChecklist: false
   });
@@ -93,7 +93,7 @@ const Calendar = ({ events: checklistEvents = [], updateTask, deleteTask }) => {
       date: isoDateStr,
       startTime: startTime,
       endTime: "",
-      color: "#3788d8",
+      color: "#E28FA5",
       goals: ""
     });
     setModalVisible(true);
